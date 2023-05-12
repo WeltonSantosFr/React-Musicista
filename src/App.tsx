@@ -1,5 +1,12 @@
+import MainPage from "./pages/MainPage";
+import RouteMain from "./routes/Route";
+
 function App() {
-  return;
+  return (
+    <>
+      <RouteMain />
+    </>
+  );
 }
 
 export default App;
