@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const RegisterPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-gray3 flex w-screen h-screen items-center justify-center">
       <form
@@ -37,7 +40,12 @@ const RegisterPage = () => {
           </button>
           <p className="text-text text-xs font-bold">
             já possui uma conta?{" "}
-            <a className="text-dark hover:text-gray3 cursor-pointer">Login</a>
+            <a
+              className="text-dark hover:text-gray3 cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </a>
           </p>
         </div>
       </form>
