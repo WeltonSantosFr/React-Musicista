@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
+import MainPage from "../pages/MainPage";
 
 const RouteMain = () => {
   return (
@@ -10,6 +11,7 @@ const RouteMain = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="home" element={<MainPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
