@@ -1,3 +1,4 @@
+import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { GoTriangleRight } from "react-icons/go";
 
@@ -170,6 +171,7 @@ const MainPage = () => {
           </details>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
