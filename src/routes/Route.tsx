@@ -4,6 +4,7 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import LessonNotesPage from "../pages/LessonNotesPage";
+import LessonTriadsPage from "../pages/LessonTriadsPage";
 
 const RouteMain = () => {
   return (
@@ -14,6 +15,7 @@ const RouteMain = () => {
         <Route path="register" element={<RegisterPage />} />
         <Route path="home" element={<MainPage />} />
         <Route path="lesson/notes" element={<LessonNotesPage />} />
+        <Route path="lesson/triads" element={<LessonTriadsPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>

@@ -15,20 +15,14 @@ const LessonNotesPage = () => {
             lessons(where: {title: "O que são as notas musicais afinal?"}) {
               id
               title
-              content {
-                text
-              }
+              primaryContent  
               secondTitle
-              secondContent {
-                text
-              }
+              secondaryContent
               examples
+              exampleContent
               exampleAssets {
                 id
                 url
-              }
-              exampleContent {
-                text
               }
             }
           }`,
@@ -52,9 +46,13 @@ const LessonNotesPage = () => {
       </div>
       <div className="w-4/5 h-full mt-10 flex flex-col gap-10 text-text font-normal text-lg">
         <h3 className="font-bold text-3xl">{lesson?.title}</h3>
-        <p>{lesson?.content.text}</p>
+        {lesson?.primaryContent.map((paragraph) => (
+          <p key={lesson?.primaryContent.indexOf(paragraph)}>{paragraph}</p>
+        ))}
         <h4 className="font-bold text-xl">{lesson?.secondTitle}</h4>
-        <p>{lesson?.secondContent?.text}</p>
+        {lesson?.secondaryContent?.map((paragraph) => (
+          <p key={lesson.secondaryContent?.indexOf(paragraph)}>{paragraph}</p>
+        ))}
       </div>
       <Footer />
     </div>
