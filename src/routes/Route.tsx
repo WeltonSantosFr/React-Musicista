@@ -5,6 +5,9 @@ import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import LessonNotesPage from "../pages/LessonNotesPage";
 import LessonTriadsPage from "../pages/LessonTriadsPage";
+import LessonTetradsPage from "../pages/LessonTetradsPage";
+import LessonMajorScalesPage from "../pages/LessonMajorScalesPage";
+import LessonMinorScalesPage from "../pages/LessonMinorScalesPage";
 
 const RouteMain = () => {
   return (
@@ -16,6 +19,9 @@ const RouteMain = () => {
         <Route path="home" element={<MainPage />} />
         <Route path="lesson/notes" element={<LessonNotesPage />} />
         <Route path="lesson/triads" element={<LessonTriadsPage />} />
+        <Route path="lesson/tetrads" element={<LessonTetradsPage />} />
+        <Route path="lesson/major-scales" element={<LessonMajorScalesPage />} />
+        <Route path="lesson/minor-scales" element={<LessonMinorScalesPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
