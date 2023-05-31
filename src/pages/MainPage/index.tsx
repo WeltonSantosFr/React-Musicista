@@ -1,8 +1,10 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { GoTriangleRight } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-gray3 min-h-screen flex flex-col items-center">
       <Header />
@@ -22,7 +24,10 @@ const MainPage = () => {
               </div>
             </summary>
             <div className="flex items-center justify-evenly">
-              <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
+              <button
+                className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3"
+                onClick={() => navigate("/lesson/notes")}
+              >
                 Notas
               </button>
               <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
