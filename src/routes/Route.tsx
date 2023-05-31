@@ -8,6 +8,7 @@ import LessonTriadsPage from "../pages/LessonTriadsPage";
 import LessonTetradsPage from "../pages/LessonTetradsPage";
 import LessonMajorScalesPage from "../pages/LessonMajorScalesPage";
 import LessonMinorScalesPage from "../pages/LessonMinorScalesPage";
+import LessonHarmonicFieldPage from "../pages/LessonHarmonicFieldPage";
 
 const RouteMain = () => {
   return (
@@ -22,6 +23,10 @@ const RouteMain = () => {
         <Route path="lesson/tetrads" element={<LessonTetradsPage />} />
         <Route path="lesson/major-scales" element={<LessonMajorScalesPage />} />
         <Route path="lesson/minor-scales" element={<LessonMinorScalesPage />} />
+        <Route
+          path="lesson/harmonic-field"
+          element={<LessonHarmonicFieldPage />}
+        />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
