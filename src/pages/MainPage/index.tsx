@@ -30,19 +30,34 @@ const MainPage = () => {
               >
                 Notas
               </button>
-              <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
+              <button
+                className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3"
+                onClick={() => navigate("/lesson/triads")}
+              >
                 Tríades
               </button>
-              <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
+              <button
+                className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3"
+                onClick={() => navigate("/lesson/tetrads")}
+              >
                 Tétrades
               </button>
-              <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
+              <button
+                className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3"
+                onClick={() => navigate("/lesson/major-scales")}
+              >
                 Escala Maior
               </button>
-              <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
+              <button
+                className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3"
+                onClick={() => navigate("/lesson/minor-scales")}
+              >
                 Escala Menor
               </button>
-              <button className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3">
+              <button
+                className="w-44 h-10 mb-2 bg-gray2 rounded-md text-text font-semibold hover:bg-gray3"
+                onClick={() => navigate("/lesson/harmonic-field")}
+              >
                 Campo Harmônico
               </button>
             </div>
