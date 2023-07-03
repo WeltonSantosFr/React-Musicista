@@ -19,13 +19,13 @@ const LandingPage = () => {
             </p>
             <div className="flex gap-5">
               <button
-                className="w-full lg:w-40 h-10 bg-gray2 text-text rounded-md font-semibold hover:bg-dark hover:text-gray1"
+                className="w-full lg:w-40 h-14 bg-gray2 text-text rounded-md font-semibold hover:bg-dark hover:text-gray1"
                 onClick={() => navigate("/login")}
               >
                 Logar
               </button>
               <button
-                className="w-full lg:w-40 h-10 bg-gray2 text-text rounded-md font-semibold hover:bg-dark hover:text-gray1"
+                className="w-full lg:w-40 h-14 bg-gray2 text-text rounded-md font-semibold hover:bg-dark hover:text-gray1"
                 onClick={() => navigate("/register")}
               >
                 Registrar
