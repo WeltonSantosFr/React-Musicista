@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="overflow-hidden max-h-screen">
-      <main className="bg-gray3 w-full h-screen flex justify-center">
+    <div className="overflow-x-hidden bg-gray3 h-screen w-full">
+      <main className="flex justify-center w-full h-full">
         <div className="w-4/5 h-full flex flex-col-reverse justify-evenly items-center lg:flex-row lg:justify-between lg:items-center">
           <div className="flex flex-col items-center lg:items-start gap-3">
             <div className="flex items-center">
@@ -19,13 +19,13 @@ const LandingPage = () => {
             </p>
             <div className="flex gap-5">
               <button
-                className="w-full lg:w-40 h-14 bg-gray2 text-text rounded-md font-semibold hover:bg-dark hover:text-gray1"
+                className="w-full lg:w-40 h-14 bg-gray2 text-text rounded-xl font-semibold hover:bg-dark hover:text-gray1"
                 onClick={() => navigate("/login")}
               >
                 Logar
               </button>
               <button
-                className="w-full lg:w-40 h-14 bg-gray2 text-text rounded-md font-semibold hover:bg-dark hover:text-gray1"
+                className="w-full lg:w-40 h-14 bg-gray2 text-text rounded-xl font-semibold hover:bg-dark hover:text-gray1"
                 onClick={() => navigate("/register")}
               >
                 Registrar
@@ -35,7 +35,7 @@ const LandingPage = () => {
           <img
             src="src\assets\leadingPageImage.png"
             alt="landingPageImage"
-            className="w-[21.875rem] h-[21.875rem] rounded-[6.25rem] xl:w-[25rem] xl:h-[25rem] 2xl:w-[31.25rem] 2xl:h-[31.25rem] transform hover:scale-110 transition-all ease-linear"
+            className="w-[21.875rem] h-[21.875rem] rounded-[6.25rem] xl:w-[25rem] xl:h-[25rem] 2xl:w-[31.25rem] 2xl:h-[31.25rem] transform hover:scale-95 transition-all ease-linear"
           />
         </div>
       </main>
