@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import { ILesson } from "../../interfaces/lesson";
+import { ILesson } from "../../interfaces/lesson.interface";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import Footer from "../../components/Footer";

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
-import { ILesson } from "../../interfaces/lesson";
+import { ILesson } from "../../interfaces/lesson.interface";
 import api from "../../services/api";
 import { useState, useEffect } from "react";
 import Footer from "../../components/Footer";

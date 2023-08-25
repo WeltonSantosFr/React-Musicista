@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
-import { ILesson } from "../../interfaces/lesson";
+import { ILesson } from "../../interfaces/lesson.interface";
 import api from "../../services/api";
 
 const LessonTriadsPage = () => {
