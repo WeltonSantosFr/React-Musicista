@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ILesson } from "../../interfaces/lesson";
+import { ILesson } from "../../interfaces/lesson.interface";
 import api from "../../services/api";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header";
