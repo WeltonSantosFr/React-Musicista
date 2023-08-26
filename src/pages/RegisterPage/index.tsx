@@ -5,21 +5,20 @@ import { useForm } from "react-hook-form";
 import { registerUserSchema } from "../../validations/forms.validations";
 import { IUser } from "../../interfaces/user.interface";
 import api from "../../services/api";
-
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const handleRegisterValues = (data: IUser) => {
+  const handleRegisterValues =  (data: IUser) => {
     api.post("/user", data)
-    .then((res) => {
-      //implementar modal de sucesso
-      console.log(res)})
-    .catch((err) => {
-      //implementar modal de erro
-      console.log(err)
-    })
+    .then((res) => {toast.success('Created with success!')
+    setTimeout(() => {
+      navigate("/home")
+    },1000)
+  })
+    .catch((err) => {toast.error(err.response.data.message)
+  })
   }
 
   const {
@@ -43,6 +42,7 @@ const RegisterPage = () => {
 
   return (
     <div className="bg-gray3 flex w-screen h-screen items-center justify-center">
+      <Toaster position="top-right" reverseOrder={false}/>
       <form
         action="register"
         className="bg-gray2 w-11/12 md:w-2/4 lg:w-1/4 h-4/6 rounded-xl flex flex-col items-center justify-evenly"
