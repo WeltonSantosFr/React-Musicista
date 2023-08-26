@@ -12,7 +12,9 @@ import axios from "axios";
 // API LOCAL
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://musicista-api.onrender.com",
+  timeout: 5000,
+  headers: { "Content-Type": "application/json" },
 })
 
 export default api;

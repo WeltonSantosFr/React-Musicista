@@ -18,3 +18,8 @@ export const registerUserSchema = yup.object().shape({
 
 
 })
+
+export const loginUserScheema = yup.object().shape({
+    email: yup.string().required("Adicione seu email").email("email inválido"),
+    password: yup.string().required("Adicione sua senha")
+})
