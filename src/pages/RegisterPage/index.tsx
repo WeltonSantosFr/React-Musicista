@@ -11,7 +11,9 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const handleRegisterValues =  (data: IUser) => {
-    api.post("/user", data)
+    api.post("/user", data, {
+      timeout: 5000,
+    })
     .then((res) => {toast.success('Created with success!')
     setTimeout(() => {
       navigate("/home")

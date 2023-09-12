@@ -6,12 +6,10 @@ const Footer = () => {
     document.documentElement.scrollTop = 0;
   }
   return (
-    <footer className="bg-dark w-full h-[4.688rem] flex justify-center mt-5">
+    <footer className="bg-dark w-full h-[4.688rem] flex justify-center mt-5 fixed bottom-0">
       <div className="flex h-full w-4/5 justify-between items-center">
         <div className="flex justify-evenly w-60 items-center">
-          <p className="text-text font-semibold">Feito com</p>
-          <AiFillHeart className="text-[rgb(220,38,38)]" />
-          <p className="text-text font-semibold">por Welton Franco</p>
+          <p className="text-text font-semibold text-left flex flex-col sm:flex-row justify-center items-center">Feito com <AiFillHeart className="text-[rgb(220,38,38)]" /> por Welton Franco</p>
         </div>
 
         <button

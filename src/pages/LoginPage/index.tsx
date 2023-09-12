@@ -11,13 +11,16 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLoginValues = (data:IUserLogin ) => {
-    api.post("/user/login", data)
+    api.post("/user/login", data, {
+      timeout: 5000
+    })
     .then((res) => {toast.success('Logged with success!')
     setTimeout(() => {
       navigate("/home")
     },1000)
   })
-  .catch((err) => {toast.error(err.response.data.message)})
+  .catch((err) => {toast.error('Login failed.')
+  })
   }
 
   const {
