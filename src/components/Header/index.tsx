@@ -66,14 +66,14 @@ const Header = () => {
         </button>
         <button
           className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
-          onClick={() => navigate("/tabs")}
+          onClick={() => navigate("/profile")}
         >
           <FaUserEdit />
           Edit User
         </button>
         <button
           className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
-          onClick={() => navigate("/tabs")}
+          onClick={() => navigate("/")}
         >
           <BsDoorOpenFill />
           Logoff
