@@ -3,23 +3,31 @@ import { BsArrowBarLeft } from "react-icons/bs";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { registerUserSchema } from "../../validations/forms.validations";
-import { IUser } from "../../interfaces/user.interface";
+import { IUserRegister } from "../../interfaces/user.interface";
 import api from "../../services/api";
 import toast, { Toaster } from 'react-hot-toast';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import {useState} from 'react'
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const handleRegisterValues =  (data: IUser) => {
+  const handleRegisterValues =  (data: IUserRegister) => {
+    setLoading(true)
     api.post("/user", data, {
       timeout: 5000,
     })
-    .then((res) => {toast.success('Created with success!')
+    .then(() => {
+      toast.success('Created with success!')
+      setLoading(false)
     setTimeout(() => {
       navigate("/home")
     },1000)
   })
-    .catch((err) => {toast.error(err.response.data.message)
+    .catch((err) => {
+      toast.error(err.response.data.message)
+      setLoading(false)
   })
   }
 
@@ -27,12 +35,11 @@ const RegisterPage = () => {
     register, 
     handleSubmit, 
     formState: {errors}, 
-    reset: registerReset,
   } = useForm({
     mode: "onSubmit", 
     resolver: yupResolver(registerUserSchema)})
 
-    const onSubmitFunction = (data:any) => {
+    const onSubmitFunction = (data:IUserRegister) => {
       const newData = {
         username: data.email,
         email: data.email,
@@ -90,8 +97,9 @@ const RegisterPage = () => {
         </div>
 
         <div className="flex flex-col items-center w-full">
-          <button type="submit" className="w-11/12 h-14 rounded-xl bg-dark text-text font-bold text-2xl hover:bg-gray3">
-            Registrar  
+          <button type="submit" className="w-11/12 h-14 rounded-xl bg-dark text-text font-bold text-2xl hover:bg-gray3 flex justify-center items-center">
+          {loading ? <AiOutlineLoading3Quarters className="animate-spin"/> : <p>Registrar</p>}
+
           </button>
           <p className="text-text text-xs font-bold ">
             já possui uma conta?{" "}
