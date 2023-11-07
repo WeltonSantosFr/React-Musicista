@@ -83,9 +83,15 @@ const LoginPage = () => {
           }
         </div>
 
-        <div className="flex flex-col items-center w-11/12">
+        <div className="flex flex-col items-center w-11/12 gap-4">
           <button type="submit" className="w-full h-14 rounded-xl bg-dark text-text font-bold text-2xl hover:bg-gray3 flex justify-center items-center">
-            {loading ? <AiOutlineLoading3Quarters className="animate-spin"/> : <p>Logar</p>}
+            {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Logar</p>}
+
+          </button>
+          <button type="button" className="w-full h-14 rounded-xl bg-gray1 text-text font-bold text-2xl hover:bg-gray3 flex justify-center items-center" onClick={() => {
+            localStorage.setItem('@token', 'guest')
+            navigate('/home')}}>
+            Entrar como convidado
 
           </button>
           <p className="text-text text-xs font-bold">
