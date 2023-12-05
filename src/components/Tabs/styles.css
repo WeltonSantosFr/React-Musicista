@@ -1,0 +1,5 @@
+.at-cursor-beat {
+    background: rgba(255, 255, 255, 0.5);
+    min-width: 700px;
+    min-height: fit-content;
+}

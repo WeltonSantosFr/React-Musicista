@@ -11,6 +11,12 @@ export interface IUserLogin {
     password:string
 }
 
+export interface IUserRegister {
+    email:string
+    password:string
+    passwordConfirmation: string
+}
+
 export interface IRegisterUserForm {
     registerUserSubmit: SubmitHandler<FieldValues>
 }
