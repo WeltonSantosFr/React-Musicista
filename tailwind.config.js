@@ -7,7 +7,9 @@ export default {
       gray1: "#778DA9",
       gray2: "#415A77",
       gray3: "#1B263B",
+      gray4: "#19232C",
       dark: "#0D1B2A",
+      darker: "#070C20"
     },
     extend: {},
   },
