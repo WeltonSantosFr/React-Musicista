@@ -7,3 +7,7 @@ body,
 div {
   overflow: hidden;
 }
+
+html,body {
+  margin: 0;
+}

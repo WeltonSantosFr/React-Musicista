@@ -17,7 +17,7 @@ const TabsSideBar = () => {
     }
 
     return (
-        <div className='w-24 h-full'>
+        <div className='w-24 h-full z-50 hidden'>
         
         <div className='bg-dark w-24 left-0 h-full flex flex-col absolute'>
             <div className="flex flex-col items-center justify-center rounded-md duration-300 cursor-pointer h-20 w-full  hover:bg-gray3" onClick={() => setSearch(!search)}>

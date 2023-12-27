@@ -5,9 +5,9 @@ const MainPage = () => {
   
 
   return (
-    <div className="bg-gray3 min-h-screen flex flex-col items-center justify-start">
+    <div className="bg-gray3 min-h-screen flex flex-col items-center justify-between">
       <Header/>
-      <div className="bg-[#000] w-full h-screen text-text flex justify-center items-center">Content</div>
+      <div className="bg-[#000] w-full h-full text-text flex justify-center items-center">Content</div>
       <Footer />
     </div>
   );
