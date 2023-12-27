@@ -364,6 +364,16 @@ const Tabs = () => {
           }}>
             <FaDownload className="text-text" />
           </div> */}
+            
+            
+            <select title='Stave Profile' name='Stave Profile' className='h-10 w-fit rounded-md bg-gray3 text-text text-center flex items-center justify-center outline-none' onChange={(e) => { setStaveProfile(e.target.value) }}>
+              <option>Tab</option>
+              <option>Score</option>
+              <option>ScoreTab</option>
+              <option>TabMixed</option>
+            </select>
+            
+          
 
 
         </div>
