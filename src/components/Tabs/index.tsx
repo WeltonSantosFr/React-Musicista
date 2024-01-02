@@ -9,6 +9,7 @@ import { GiGuitarHead, GiGuitarBassHead, GiDrumKit, GiSaxophone, GiMusicalKeyboa
 import { PiMetronomeBold } from "react-icons/pi";
 import { TiArrowLoop } from "react-icons/ti";
 import Header from '../Header';
+import TabsSideBar from '../TabsSideBar';
 
 
 const Tabs = () => {
@@ -124,7 +125,7 @@ const Tabs = () => {
     apiRef.current.scoreLoaded.on((score: Score) => {
       setTracks(score.tracks)
       setScore(score)
-      console.log(score)
+      
       let songLength = 0
 
       score.tracks[3].staves.forEach((stave: Stave) => {
@@ -142,11 +143,10 @@ const Tabs = () => {
 
 
 
-      console.log(songLength)
+      
       setSongDurationMinutes(Math.floor(songLength / 60))
       setSongDurationSeconds(Math.ceil(songLength % 60))
-      console.log(songDurationMinutes)
-      console.log(songDurationSeconds)
+     
 
     })
 
@@ -186,12 +186,15 @@ const Tabs = () => {
       {/* having to put the header here is not good at all, but was the only way i could make the styles work */}
       <Header />
 
-
-      <div id='alphaTab' className='w-full h-full bg-darker overflow-y-scroll'></div>
-      <div className='at-controls h-14 w-full'>
+      <div className='w-full h-full flex'>
+      
+      <TabsSideBar/>
+      <div id='alphaTab' className='w-full h-full bg-darker overflow-y-scroll z-0'></div>
+      </div>
+      <div className='at-controls h-14 w-full z-10'>
         <div className='at-controls-left h-full flex items-center justify-start gap-4 bg-gray2'>
 
-          <div title='Back' className='at-player-stop hover:cursor-pointer bg-gray3 w-10 h-10 rounded-full flex items-center justify-center ml-2' onClick={() => {
+          <div title='Back' className='at-player-stop hover:cursor-pointer bg-gray3 hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center ml-2' onClick={() => {
             apiRef.current.stop()
             setPlayStatus("stop")
             document.querySelector('#alphaTab')!.scrollTop = 0;
@@ -200,7 +203,7 @@ const Tabs = () => {
             <FaBackward className="text-text" />
           </div>
           {playStatus === "stop" || playStatus == "pause" ?
-            <div className='at-player-play-pause hover:cursor-pointer bg-gray3 w-10 h-10 rounded-full flex items-center justify-center'
+            <div className='at-player-play-pause hover:cursor-pointer bg-gray3 hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center'
               title='Play/Pause'
               onClick={() => {
                 apiRef.current.play()
@@ -209,7 +212,7 @@ const Tabs = () => {
             >
               <FaPlay className="text-text" />
             </div> :
-            <div className='at-player-play-pause hover:cursor-pointer bg-text w-10 h-10 rounded-full flex items-center justify-center'
+            <div className='at-player-play-pause hover:cursor-pointer bg-text hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center'
               title='Play/Pause'
               onClick={() => {
                 apiRef.current.pause()
@@ -219,7 +222,7 @@ const Tabs = () => {
               <FaPause className="text-gray3" />
             </div>
           }
-          {!selectTrack ? <div className='at-player-play-pause hover:cursor-pointer bg-gray3 w-10 h-10 rounded-full flex items-center justify-center'
+          {!selectTrack ? <div className='at-player-play-pause hover:cursor-pointer bg-gray3 hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center'
             title='Track Selector/Controls'
             onClick={() => {
               setSelectTrack(!selectTrack)
@@ -227,7 +230,7 @@ const Tabs = () => {
             }}>
             <GiGuitarHead className="text-text" />
           </div> :
-            <div className='at-player-play-pause hover:cursor-pointer bg-text w-10 h-10 rounded-full flex items-center justify-center'
+            <div className='at-player-play-pause hover:cursor-pointer bg-text hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center'
               title='Track Selector/Controls'
               onClick={() => {
                 setSelectTrack(!selectTrack)
@@ -237,8 +240,8 @@ const Tabs = () => {
             </div>
 
           }
-          <div id='volume-controller' className='w-fit h-fit absolute left-0 bottom-12 bg-gray3 z-10 rounded-r-md cursor-default flex flex-col justify-evenly items-center -translate-x-full duration-500 ease-out transition-all indent-0'>
-            {tracks ? tracks.map((track: Track) => <div key={track.index} className='text-text p-2 w-full flex items-center gap-2 justify-between' >
+          <div id='volume-controller' className='w-fit h-fit absolute left-0 bottom-12 bg-gray3  z-10 rounded-r-md cursor-default flex flex-col justify-evenly items-center -translate-x-full duration-500 ease-out transition-all indent-0'>
+            {tracks ? tracks.map((track: Track) => <div key={track.index} className='text-text p-2 w-full flex items-center gap-2 justify-between'>
               {track.name.toLowerCase().includes('guitar') ? <GiGuitarHead className="text-text" /> : null}
               {track.name.toLowerCase().includes('bass') ? <GiGuitarBassHead className="text-text" /> : null}
               {track.name.toLowerCase().includes('brass') ? <GiSaxophone className="text-text" /> : null}
@@ -261,7 +264,7 @@ const Tabs = () => {
                   }} />
                 </div>
                 <div className='flex flex-col gap-1 w-10'>
-                  {tracks[track.index].playbackInfo.isMute ? <button title='Mute' className='w-7 h-7 bg-[#D9D9D9] rounded-md text-[#000] font-medium flex justify-center items-center' onClick={() => {
+                  {tracks[track.index].playbackInfo.isMute ? <button title='Mute' className='w-7 h-7 bg-[#D9D9D9] hover:bg-gray1  rounded-md text-[#000] font-medium flex justify-center items-center' onClick={() => {
                     apiRef.current.changeTrackMute([apiRef.current.score.tracks[track.index]], !tracks[track.index].playbackInfo.isMute)
                     const updatedTracks = [...tracks]
                     updatedTracks[track.index].playbackInfo.isMute = !tracks[track.index].playbackInfo.isMute
@@ -273,7 +276,7 @@ const Tabs = () => {
                         <FaVolumeUp /> :
                         <FaVolumeMute />
                     }
-                  </button> : <button title='Mute' className='w-7 h-7 bg-[#D9D9D9] rounded-md text-[#000] font-medium flex justify-center items-center' onClick={() => {
+                  </button> : <button title='Mute' className='w-7 h-7 bg-[#D9D9D9] hover:bg-gray1  rounded-md text-[#000] font-medium flex justify-center items-center' onClick={() => {
                     apiRef.current.changeTrackMute([apiRef.current.score.tracks[track.index]], !tracks[track.index].playbackInfo.isMute)
                     const updatedTracks = [...tracks]
                     updatedTracks[track.index].playbackInfo.isMute = !tracks[track.index].playbackInfo.isMute
@@ -286,7 +289,7 @@ const Tabs = () => {
                         <FaVolumeMute className="text-gray3" />
                     }
                   </button>}
-                  {tracks[track.index].playbackInfo.isSolo ? <button title='Solo' className='w-7 h-7 bg-[#50d436] rounded-md text-[#000] font-medium' onClick={() => {
+                  {tracks[track.index].playbackInfo.isSolo ? <button title='Solo' className='w-7 h-7 bg-[#50d436] hover:bg-gray1  rounded-md text-[#000] font-medium' onClick={() => {
                     apiRef.current.changeTrackSolo([apiRef.current.score.tracks[track.index]], !tracks[track.index].playbackInfo.isSolo)
                     const updatedTracks = [...tracks]
                     updatedTracks[track.index].playbackInfo.isSolo = !tracks[track.index].playbackInfo.isSolo
@@ -294,7 +297,7 @@ const Tabs = () => {
                   }
                   }>S</button>
                     :
-                    <button title='Solo' className='w-7 h-7 bg-[#D9D9D9] rounded-md text-[#000] font-medium' onClick={() => {
+                    <button title='Solo' className='w-7 h-7 bg-[#D9D9D9] hover:bg-gray1  rounded-md text-[#000] font-medium' onClick={() => {
                       apiRef.current.changeTrackSolo([apiRef.current.score.tracks[track.index]], !tracks[track.index].playbackInfo.isSolo)
                       const updatedTracks = [...tracks]
                       updatedTracks[track.index].playbackInfo.isSolo = !tracks[track.index].playbackInfo.isSolo
@@ -308,11 +311,11 @@ const Tabs = () => {
 
 
           {
-            metronome ? <div title='Metronome' className='at-player-play-pause hover:cursor-pointer bg-text w-10 h-10 rounded-full flex items-center justify-center' onClick={() => setMetronome(!metronome)}>
+            metronome ? <div title='Metronome' className='at-player-play-pause hover:cursor-pointer bg-text hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center' onClick={() => setMetronome(!metronome)}>
               <PiMetronomeBold className="text-gray3" />
             </div>
               :
-              <div title='Metronome' className='at-player-play-pause hover:cursor-pointer bg-gray3 w-10 h-10 rounded-full flex items-center justify-center' onClick={() => setMetronome(!metronome)}>
+              <div title='Metronome' className='at-player-play-pause hover:cursor-pointer bg-gray3 hover:bg-gray1  w-10 h-10 rounded-full flex items-center justify-center' onClick={() => setMetronome(!metronome)}>
                 <PiMetronomeBold className="text-text" />
               </div>
           }
@@ -329,24 +332,24 @@ const Tabs = () => {
             }</p>
           </div>
 
-          {countIn ? <div className='w-10 h-10 rounded-full flex items-center justify-center bg-text hover:cursor-pointer' title='Count In' onClick={() => setCountIn(!countIn)}>
+          {countIn ? <div className='w-10 h-10 rounded-full flex items-center justify-center bg-text hover:bg-gray1  hover:cursor-pointer' title='Count In' onClick={() => setCountIn(!countIn)}>
             <FaHourglass className="text-gray3" />
           </div>
             :
-            <div className='w-10 h-10 rounded-full flex items-center justify-center bg-gray3 hover:cursor-pointer' title='Count In' onClick={() => setCountIn(!countIn)}>
+            <div className='w-10 h-10 rounded-full flex items-center justify-center bg-gray3 hover:bg-gray1  hover:cursor-pointer' title='Count In' onClick={() => setCountIn(!countIn)}>
               <FaHourglass className="text-text" />
             </div>
           }
 
-          {loop ? <div className='w-10 h-10 rounded-full flex items-center justify-center bg-text hover:cursor-pointer' title='Loop' onClick={() => setLoop(!loop)}>
+          {loop ? <div className='w-10 h-10 rounded-full flex items-center justify-center bg-text hover:bg-gray1  hover:cursor-pointer' title='Loop' onClick={() => setLoop(!loop)}>
             <TiArrowLoop className="text-gray3" />
           </div>
             :
-            <div className='w-10 h-10 rounded-full flex items-center justify-center bg-gray3 hover:cursor-pointer' title='Loop' onClick={() => setLoop(!loop)}>
+            <div className='w-10 h-10 rounded-full flex items-center justify-center bg-gray3 hover:bg-gray1  hover:cursor-pointer' title='Loop' onClick={() => setLoop(!loop)}>
               <TiArrowLoop className="text-text" />
             </div>}
 
-          <div className='w-10 h-10 rounded-full flex items-center justify-center bg-gray3 hover:cursor-pointer' title='Print' onClick={() => apiRef.current.print()}>
+          <div className='w-10 h-10 rounded-full flex items-center justify-center bg-gray3 hover:bg-gray1  hover:cursor-pointer' title='Print' onClick={() => apiRef.current.print()}>
             <FaPrint className="text-text" />
           </div>
 
@@ -379,6 +382,7 @@ const Tabs = () => {
         </div>
 
       </div>
+      
 
 
     </div>
