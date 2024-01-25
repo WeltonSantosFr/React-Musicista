@@ -2,27 +2,28 @@ import './styles.css'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState, useRef } from 'react'
 // @ts-ignore
-import { AlphaTabApi, Score, Track, Voice, Beat, Note, Stave, Bar, Gp7Exporter } from '@coderline/alphatab'
+import { AlphaTabApi, Score, Track, Voice, Beat, Stave, Bar } from '@coderline/alphatab'
 
-import { FaPlay, FaPause, FaBackward, FaHourglass, FaVolumeUp, FaVolumeMute, FaDownload, FaPrint } from "react-icons/fa";
+import { FaPlay, FaPause, FaBackward, FaHourglass, FaVolumeUp, FaVolumeMute, FaPrint } from "react-icons/fa";
 import { GiGuitarHead, GiGuitarBassHead, GiDrumKit, GiSaxophone, GiMusicalKeyboard, GiMicrophone } from "react-icons/gi";
 import { PiMetronomeBold } from "react-icons/pi";
 import { TiArrowLoop } from "react-icons/ti";
 import Header from '../Header';
 import TabsSideBar from '../TabsSideBar';
-
+import { useSelector } from 'react-redux';
+import { MusicsState } from '../../GlobalRedux/Modules/Musics/musicSlice';
 
 const Tabs = () => {
 
   const apiRef = useRef<AlphaTabApi | null>(null);
   const settings = useRef<object | null>(null)
 
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
   const [playStatus, setPlayStatus] = useState<string>("stop")
   const [selectTrack, setSelectTrack] = useState<boolean>(false)
   const [tracks, setTracks] = useState<Array<Track>>([])
   const [trackToRender, setTrackToRender] = useState<Array<number>>([0])
-  const [songFile, setSongFile] = useState(`src/assets/Lamb of God - 11th hour.gp3`)
+  const songFileState = useSelector((state: any) => state.music.songFile)
   const [staveProfile, setStaveProfile] = useState("Tab")
   const [metronome, setMetronome] = useState<boolean>(false)
   const [songTimeMinutes, setSongTimeMinutes] = useState<number>(0)
@@ -33,11 +34,8 @@ const Tabs = () => {
   const [countIn, setCountIn] = useState<boolean>(false)
   const [loop, setLoop] = useState<boolean>(false)
 
-
-
-
   useEffect(() => {
-
+    
     settings.current = {
       core: {
         fontDirectory: 'src/font/',
@@ -89,9 +87,17 @@ const Tabs = () => {
     }
 
     apiRef.current = new AlphaTabApi(document.querySelector('#alphaTab'), settings.current)
-    apiRef.current.load(songFile, trackToRender)
-
-  }, [songFile, trackToRender, staveProfile])
+    if(songFileState) {
+      console.log(songFileState.data)
+      const arrayBuffer = new Uint8Array(songFileState.data.data)
+      console.log(arrayBuffer)
+      const blob = new Blob([arrayBuffer], {type: 'application/gp3'})
+      console.log(blob)
+      console.log(apiRef.current.load(arrayBuffer))
+    }
+   
+    
+  }, [trackToRender, staveProfile, songFileState])
 
   useEffect(() => {
     if (metronome) {
@@ -170,16 +176,6 @@ const Tabs = () => {
       clearInterval(intervalId)
     }
   }, [])
-
-  // useEffect(() => {
-  //   if(apiRef.current){
-
-  //     const exporter = new AlphaTabApi.exporter.Gp7Exporter()
-
-  //     const data = exporter.export(apiRef.current.score, apiRef.current.settings)
-  //   }
-  // }, [])
-
 
   return (
     <div className='flex flex-col w-full h-screen items-center'>

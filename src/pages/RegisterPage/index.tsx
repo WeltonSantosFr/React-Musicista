@@ -16,7 +16,6 @@ const RegisterPage = () => {
   const handleRegisterValues =  (data: IUserRegister) => {
     setLoading(true)
     api.post("/user", data, {
-      timeout: 5000,
     })
     .then(() => {
       toast.success('Created with success!')

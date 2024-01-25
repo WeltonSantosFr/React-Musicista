@@ -16,11 +16,11 @@ const LoginPage = () => {
   const handleLoginValues = (data: IUserLogin) => {
     setLoading(true)
     api.post("/user/login", data, {
-      timeout: 5000
     })
-      .then(() => {
+      .then((res) => {
         toast.success('Logged with success!')
         setLoading(false)
+        localStorage.setItem('@token', res.data.token)
         setTimeout(() => {
           navigate("/home")
         }, 1000)
@@ -32,7 +32,6 @@ const LoginPage = () => {
   }
 
   const {
-
     register,
     handleSubmit,
     formState: { errors },

@@ -23,3 +23,12 @@ export const loginUserScheema = yup.object().shape({
     email: yup.string().required("Adicione seu email").email("email inválido"),
     password: yup.string().required("Adicione sua senha")
 })
+
+export const musicCreateSchema = yup.object().shape({
+    songName: yup.string().required("Adicione o nome da musica"),
+    artist: yup.string().required("Adicione o artista"),
+    difficulty: yup.number().required("Adicione a dificuldade"),
+    data: yup.mixed().test('file', "Adicione um arquivo", (value) => {
+        return value instanceof FileList
+    }),
+})
