@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "typeRoots": ["node_modules/@types" ,"node_modules/@coderline/alphatab/dist"]
+    "typeRoots": ["node_modules/@types" ,"node_modules/@coderline"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

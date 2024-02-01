@@ -50,7 +50,6 @@ const TabsSideBar = () => {
     })
 
     const onSubmitFunction = (data: any) => {
-        console.log(data)
         handleCreateMusicValues(data)
     }
 
@@ -62,7 +61,6 @@ const TabsSideBar = () => {
                     setLoading(false)
                 })
                 .catch((err) => {
-                    console.log(err)
                     setTimeout(() => { loadMusics() }, 5000)
                 })
         }
@@ -245,7 +243,7 @@ const TabsSideBar = () => {
                                 <span className="text-[rgb(255,25,50)] font-semibold text-sm">{errors.data?.message}</span>
                                 : <></>
                             }
-                            <p className='text-text text-sm'>.gp .gp3 .gp5 .gp7</p>
+                            <p className='text-text text-sm'>.gp .gp3 .gp4 .gp5 .gpx .gp7</p>
                             <button type='submit' className='w-14 h-10 bg-text rounded-sm font-medium'>Enviar</button>
                         </form>
                     </div> : null

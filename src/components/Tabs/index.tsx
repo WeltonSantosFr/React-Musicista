@@ -11,7 +11,6 @@ import { TiArrowLoop } from "react-icons/ti";
 import Header from '../Header';
 import TabsSideBar from '../TabsSideBar';
 import { useSelector } from 'react-redux';
-import { MusicsState } from '../../GlobalRedux/Modules/Musics/musicSlice';
 
 const Tabs = () => {
 
@@ -88,15 +87,10 @@ const Tabs = () => {
 
     apiRef.current = new AlphaTabApi(document.querySelector('#alphaTab'), settings.current)
     if(songFileState) {
-      console.log(songFileState.data)
       const arrayBuffer = new Uint8Array(songFileState.data.data)
-      console.log(arrayBuffer)
-      const blob = new Blob([arrayBuffer], {type: 'application/gp3'})
-      console.log(blob)
-      console.log(apiRef.current.load(arrayBuffer))
+      apiRef.current.load(arrayBuffer)
+      apiRef.current.scoreLoaded.on((score:any) => {console.log(score)}) 
     }
-   
-    
   }, [trackToRender, staveProfile, songFileState])
 
   useEffect(() => {
@@ -108,27 +102,25 @@ const Tabs = () => {
       apiRef.current.metronomeVolume = 0.0
       apiRef.current.updateSettings(settings.current)
     }
-
     if (countIn) {
       apiRef.current.countInVolume = 1.0
     }
     if (!countIn) {
       apiRef.current.countInVolume = 0.0
     }
-
     if (loop) {
       apiRef.current.isLooping = true
     }
-
     if (!loop) {
       apiRef.current.isLooping = false
     }
-
   }, [metronome, countIn, loop])
 
 
   useEffect(() => {
     apiRef.current.scoreLoaded.on((score: Score) => {
+      console.log(score)
+      
       setTracks(score.tracks)
       setScore(score)
       
@@ -146,14 +138,8 @@ const Tabs = () => {
           })
         })
       })
-
-
-
-      
       setSongDurationMinutes(Math.floor(songLength / 60))
       setSongDurationSeconds(Math.ceil(songLength % 60))
-     
-
     })
 
   }, [])
