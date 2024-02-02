@@ -86,6 +86,7 @@ const Tabs = () => {
     }
 
     apiRef.current = new AlphaTabApi(document.querySelector('#alphaTab'), settings.current)
+    apiRef.current.load('src/assets/Muse - Knights of Cydonia.gp3')
     if(songFileState) {
       const arrayBuffer = new Uint8Array(songFileState.data.data)
       apiRef.current.load(arrayBuffer)
@@ -166,7 +167,7 @@ const Tabs = () => {
   return (
     <div className='flex flex-col w-full h-screen items-center'>
       {/* having to put the header here is not good at all, but was the only way i could make the styles work */}
-      <Header />
+      {/* <Header /> */}
 
       <div className='w-full h-full flex'>
       
