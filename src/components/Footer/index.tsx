@@ -6,9 +6,9 @@ const Footer = () => {
     document.documentElement.scrollTop = 0;
   }
   return (
-    <footer className="bg-dark w-full h-20 flex justify-center z-10 justify-self-end">
+    <footer className="bg-dark w-screen h-20 flex justify-center z-10">
 
-      <div className="flex h-full w-4/5 justify-between items-center">
+      <div className="flex h-20 w-11/12 justify-between items-center">
         <div className="flex justify-evenly w-60 items-center">
           <p className="text-text font-semibold text-left flex flex-col sm:flex-row justify-center items-center">Feito com <AiFillHeart className="text-[rgb(220,38,38)]" /> por Welton Franco</p>
         </div>
