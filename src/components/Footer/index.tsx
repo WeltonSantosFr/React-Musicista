@@ -6,7 +6,7 @@ const Footer = () => {
     document.documentElement.scrollTop = 0;
   }
   return (
-    <footer className="bg-dark w-screen h-20 flex justify-center z-10">
+    <footer className="bg-dark w-screen h-20 flex justify-center z-10 fixed bottom-0 left-0">
 
       <div className="flex h-20 w-11/12 justify-between items-center">
         <div className="flex justify-evenly w-60 items-center">

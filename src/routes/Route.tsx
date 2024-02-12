@@ -10,6 +10,7 @@ import LessonMajorScalesPage from "../pages/LessonMajorScalesPage";
 import LessonMinorScalesPage from "../pages/LessonMinorScalesPage";
 import LessonHarmonicFieldPage from "../pages/LessonHarmonicFieldPage";
 import TabsPage from "../pages/TabsPage";
+import LessonsPage from "../pages/lessonsPage";
 
 const RouteMain = () => {
   return (
@@ -20,7 +21,8 @@ const RouteMain = () => {
         <Route path="register" element={<RegisterPage />} />
         <Route path="home" element={<MainPage />} />
         <Route path="tabs" element={<TabsPage />} />
-        <Route path="lesson/notes" element={<LessonNotesPage />} />
+        <Route path="lessons" element={<LessonsPage/>} />
+        <Route path="lessons/notes" element={<LessonNotesPage />} />
         <Route path="lesson/triads" element={<LessonTriadsPage />} />
         <Route path="lesson/tetrads" element={<LessonTetradsPage />} />
         <Route path="lesson/major-scales" element={<LessonMajorScalesPage />} />
