@@ -3,7 +3,7 @@ import { BsArrowBarLeft } from "react-icons/bs";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { registerUserSchema } from "../../validations/forms.validations";
-import { IUserRegister } from "../../interfaces/user.interface";
+import { UserRegister } from "../../interfaces/user.interface";
 import api from "../../services/api";
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -13,7 +13,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleRegisterValues =  (data: IUserRegister) => {
+  const handleRegisterValues =  (data: UserRegister) => {
     setLoading(true)
     api.post("/user", data, {
     })
@@ -38,9 +38,9 @@ const RegisterPage = () => {
     mode: "onSubmit", 
     resolver: yupResolver(registerUserSchema)})
 
-    const onSubmitFunction = (data:IUserRegister) => {
+    const onSubmitFunction = (data:UserRegister) => {
       const newData = {
-        username: data.email,
+        username: data.email.split("@")[0],
         email: data.email,
         password: data.password,
         passwordConfirmation: data.passwordConfirmation

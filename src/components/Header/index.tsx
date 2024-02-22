@@ -1,15 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsDoorOpenFill } from "react-icons/bs";
-import { FaGuitar, FaHome, FaMusic, FaUserEdit } from "react-icons/fa";
+import { FaGuitar, FaHome, FaMusic, FaUserCircle } from "react-icons/fa";
+import { MdForum } from "react-icons/md";
 import { useNavigate } from "react-router";
+import UserModal from "../UserModal";
+import api from "../../services/api";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setUser } from "../../GlobalRedux/Modules/User/userSlice";
+import { Toaster } from "react-hot-toast";
+
+
+
 
 const Header = () => {
+  const dispatch = useDispatch()
+  const user = useSelector((state: any) => state.user.user)
+
+  useEffect(() => {
+    api.get('/user/userInfo', { headers: { Authorization: `bearer ${localStorage.getItem("@token")}` } })
+      .then((res) => {
+        dispatch(setUser(res.data))
+      })
+      .catch((err) => console.log(err))
+  }, [user])
+
   const navigate = useNavigate();
   const [dropbar, setDropbar] = useState(false)
+  const [userModal, setUserModal] = useState(false)
+
+
 
   return (
     <header className="flex items-center h-20 w-full justify-center bg-grey3">
+      <Toaster position="top-right" reverseOrder={false} />
+      {
+        userModal ? <UserModal setUserModal={setUserModal} /> : null
+      }
+
       <div className="flex items-center h-20 w-11/12 justify-between">
         <div className="flex items-center hover:cursor-pointer" onClick={() => navigate("/home")}>
           <FaGuitar className="text-text min-w-[1.563rem] min-h-[1.563rem]" />
@@ -27,28 +56,41 @@ const Header = () => {
           </button>
           <button
             className="w-full h-14 text-text font-semibold hover:bg-[#000] flex justify-start items-center gap-5"
-            onClick={() => navigate("/tabs")}
+            onClick={() => navigate("/lessons")}
           >
             <FaMusic className="ml-4" />
-            Tabs
+            Aulas
           </button>
           <button
             className="w-full h-14 text-text font-semibold hover:bg-[#000] flex justify-start items-center gap-5"
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate("/forum")}
           >
-            <FaUserEdit className="ml-4" />
-            Edit User
+            <MdForum className="ml-4" />
+            Forum
           </button>
           <button
             className="w-full h-14 text-text font-semibold hover:bg-[#000] flex justify-start items-center gap-5"
-            onClick={() => navigate("/")}
+            onClick={() => {
+              localStorage.clear()
+              navigate("/")
+            }}
           >
             <BsDoorOpenFill className="ml-4" />
             Logoff
           </button>
 
+          <button className="w-full h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
+            onClick={() => {
+              setUserModal(true)
+              setDropbar(false)
+            }}>
+            <FaUserCircle className="" />
+            {user.username.lenght > 6 ? user.username : user.username.substring(0, 6) + "..."}
+          </button>
+
         </div> : null}
         <AiOutlineMenu onClick={() => setDropbar(!dropbar)} className="text-text w-[1.563rem] h-[1.563rem] md:hidden" />
+
 
         <div className="hidden md:flex">
           <button
@@ -61,24 +103,33 @@ const Header = () => {
           </button>
           <button
             className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
-            onClick={() => navigate("/tabs")}
+            onClick={() => navigate("/lessons")}
           >
             <FaMusic />
-            Tabs
+            Aulas
           </button>
           <button
             className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate("/forum")}
           >
-            <FaUserEdit />
-            Edit User
+            <MdForum />
+            Fórum
           </button>
           <button
             className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
-            onClick={() => navigate("/")}
+            onClick={() => {
+              localStorage.clear()
+              navigate("/")
+            }}
           >
             <BsDoorOpenFill />
             Logoff
+          </button>
+
+          <button className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
+            onClick={() => setUserModal(true)}>
+            <FaUserCircle className="w-6 h-6" />
+            {user.username.lenght > 10 ? user.username.substring(0, 10) + "..." : user.username}
           </button>
         </div>
       </div>
