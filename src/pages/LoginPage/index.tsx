@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { BsArrowBarLeft } from "react-icons/bs";
-import { IUserLogin } from "../../interfaces/user.interface";
+import { UserLogin } from "../../interfaces/user.interface";
 import api from "../../services/api";
 import toast, { Toaster } from 'react-hot-toast';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,7 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleLoginValues = (data: IUserLogin) => {
+  const handleLoginValues = (data: UserLogin) => {
     setLoading(true)
     api.post("/user/login", data, {
     })
@@ -40,7 +40,7 @@ const LoginPage = () => {
     resolver: yupResolver(loginUserScheema)
   })
 
-  const onSubmitFunction = (data: IUserLogin) => {
+  const onSubmitFunction = (data: UserLogin) => {
     console.log(data)
     handleLoginValues(data)
   }
