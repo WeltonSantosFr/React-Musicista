@@ -11,7 +11,7 @@ const LandingPage = () => {
             <div className="w-full h-full flex flex-col items-center justify-center gap-10 sm:flex-row-reverse sm:justify-between sm:items-center">
 
           <img
-            src="src\assets\leadingPageImage.png"
+            src="src\assets\landingPageImage.svg"
             alt="landingPageImage"
             className="w-[75%] rounded-[25%] sm:w-[50%] md:w-[40%] transform hover:scale-95 transition-all ease-linear"
             />
