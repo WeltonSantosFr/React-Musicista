@@ -1,6 +1,8 @@
 import { FieldValues, SubmitHandler } from "react-hook-form"
 
 export interface User {
+    id: string
+    profileImagePath: string | null
     username:string
     email:string
     password:string
@@ -18,7 +20,7 @@ export interface UserRegister {
 }
 
 export interface UserUpdate {
-    profileImage?: FileList
+    profileImagePath?: string
     username?: string
     email?: string
     password?: string

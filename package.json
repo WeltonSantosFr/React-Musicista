@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^3.1.1",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.4.0",
+    "firebase": "^10.8.0",
     "git-filter-repo": "^0.0.30",
     "node": "^21.2.0",
     "pcloud-sdk-js": "^2.0.0",

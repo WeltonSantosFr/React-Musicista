@@ -20,7 +20,6 @@ export const loginUserScheema = yup.object().shape({
 })
 
 export const updateUserSchema = yup.object().shape({
-    profileImage: yup.mixed(),
     username: yup.string()
         .min(3, "Deve conter pelo menos 3 dígitos")
         .max(12, "Deve conter no máximo 12 dígitos"),
@@ -31,4 +30,4 @@ export const updateUserSchema = yup.object().shape({
         .matches(/(\d)/, "deve conter ao menos 1 número")
         .matches(/(\W)|_/, "deve conter ao menos 1 caractere especial")
         .matches(/.{8,}/, "deve conter ao menos 8 dígitos")
-})
+}).defined()

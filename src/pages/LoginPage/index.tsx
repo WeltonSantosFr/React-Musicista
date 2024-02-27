@@ -25,7 +25,8 @@ const LoginPage = () => {
           navigate("/home")
         }, 1000)
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err)
         toast.error('Login failed.')
         setLoading(false)
       })
@@ -41,7 +42,6 @@ const LoginPage = () => {
   })
 
   const onSubmitFunction = (data: UserLogin) => {
-    console.log(data)
     handleLoginValues(data)
   }
 

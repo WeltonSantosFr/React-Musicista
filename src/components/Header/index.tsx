@@ -10,27 +10,23 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setUser } from "../../GlobalRedux/Modules/User/userSlice";
 import { Toaster } from "react-hot-toast";
-
-
-
+import { RootState } from "../../GlobalRedux/store";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [dropbar, setDropbar] = useState(false)
+  const [userModal, setUserModal] = useState(false)
+  const user = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
-  const user = useSelector((state: any) => state.user.user)
 
   useEffect(() => {
     api.get('/user/userInfo', { headers: { Authorization: `bearer ${localStorage.getItem("@token")}` } })
       .then((res) => {
         dispatch(setUser(res.data))
       })
-      .catch((err) => console.log(err))
-  }, [user])
-
-  const navigate = useNavigate();
-  const [dropbar, setDropbar] = useState(false)
-  const [userModal, setUserModal] = useState(false)
-
-
+      .catch((err) => console.error(err))
+      
+  }, [dispatch])
 
   return (
     <header className="flex items-center h-20 w-full justify-center bg-grey3">
@@ -84,8 +80,10 @@ const Header = () => {
               setUserModal(true)
               setDropbar(false)
             }}>
-            <FaUserCircle className="" />
-            {user.username.lenght > 6 ? user.username : user.username.substring(0, 6) + "..."}
+              {user.profileImagePath == null ? <FaUserCircle className="w-5 h-5" /> : <img src={user.profileImagePath} className="w-5 h-5 rounded-full"/>}
+            
+
+            {user.username.length > 6 ? user.username.substring(0, 6) + "..." : user.username}
           </button>
 
         </div> : null}
@@ -128,8 +126,8 @@ const Header = () => {
 
           <button className="w-40 h-14 text-text rounded-xl font-semibold hover:bg-dark flex justify-center items-center gap-5"
             onClick={() => setUserModal(true)}>
-            <FaUserCircle className="w-6 h-6" />
-            {user.username.lenght > 10 ? user.username.substring(0, 10) + "..." : user.username}
+            {user.profileImagePath == null ? <FaUserCircle className="w-6 h-6" /> : <img src={user.profileImagePath} className="w-6 h-6 rounded-full"/>}
+            {user.username.length > 10 ? user.username.substring(0, 10) + "..." : user.username}
           </button>
         </div>
       </div>
