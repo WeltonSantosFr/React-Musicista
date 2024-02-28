@@ -11,7 +11,7 @@ const LandingPage = () => {
             <div className="w-full h-full flex flex-col items-center justify-center gap-10 sm:flex-row-reverse sm:justify-between sm:items-center">
 
           <img
-            src="src\assets\landingPageImage.svg"
+            src={`https://firebasestorage.googleapis.com/v0/b/musicista-86562.appspot.com/o/assets%2FlandingPageImage.svg?alt=media&token=5ca2d925-87d5-4a60-ad28-7f616ef03457`}
             alt="landingPageImage"
             className="w-[75%] rounded-[25%] sm:w-[50%] md:w-[40%] transform hover:scale-95 transition-all ease-linear"
             />
