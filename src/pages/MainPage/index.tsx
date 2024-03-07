@@ -1,14 +1,15 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import MainLayout from "../../components/MainLayout";
 
 const MainPage = () => {
 
 
   return (
-    <div className="bg-gray3 h-screen w-screen flex flex-col justify-between items-center">
-      <Header />
+    // <div className="bg-gray3 min-h-screen w-screen flex flex-col justify-between items-center">
+    //   <Header />
 
-      <div className="w-11/12 max-h-full bg-grey3 flex flex-col justify-evenly items-center gap-2">
+      /* <div className="w-11/12 max-h-full bg-grey3 flex flex-col justify-evenly items-center gap-2">
 
         <div className="w-full h-48 bg-dark text-text text-sm md:text-base font-medium flex justify-evenly items-center rounded-md">
           <div className="w-1/2 h-full flex flex-col items-center justify-center text-center gap-2">
@@ -46,10 +47,13 @@ const MainPage = () => {
           </div>
         </div>
 
-      </div>
+      </div> */
 
-      <Footer />
-    </div>
+      // {/* <Footer /> */}
+    // </div>
+    <MainLayout>
+      
+    </MainLayout>
   );
 };
 

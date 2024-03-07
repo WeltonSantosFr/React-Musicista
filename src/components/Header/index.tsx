@@ -29,7 +29,7 @@ const Header = () => {
   }, [dispatch])
 
   return (
-    <header className="flex items-center h-20 w-full justify-center bg-grey3">
+    <header className="flex items-center h-20 w-full justify-center bg-gray2 fixed top-0 z-50">
       <Toaster position="top-right" reverseOrder={false} />
       {
         userModal ? <UserModal setUserModal={setUserModal} /> : null
