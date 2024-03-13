@@ -3,10 +3,10 @@ import Footer from "../Footer";
 
 const MainLayout = ({ children }:any) => {
   return (
-    <div className="flex flex-col min-h-screen bg-gray3">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      <main className="flex-grow mt-20">
+      <main className="flex-grow mt-12">
         {/* Conteúdo dinâmico da página */}
         {children}
       </main>
