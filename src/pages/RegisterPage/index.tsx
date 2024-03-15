@@ -8,10 +8,13 @@ import api from "../../services/api";
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {useState} from 'react'
+import { Input } from "../../components/Input";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const handleRegisterValues =  (data: UserRegister) => {
     setLoading(true)
@@ -62,33 +65,35 @@ const RegisterPage = () => {
         />
         <h3 className="text-black font-bold text-lg">Registro</h3>
         <div className="flex flex-col gap-5 w-11/12">
-          <input
-            type="text"
-            placeholder="Email"
-            {...register("email")}
-            className="w-full h-10 rounded-sm placeholder:text-gray-4 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black"
-          />
+          <Input placeholder="Email" {...register("email")}/>
           {errors.email?.message ?
           
           <span className="text-red font-medium text-xs">{errors.email?.message}</span>
         : <></>
         }
-          <input
-            type="password"
-            placeholder="Senha"
-            {...register("password")}
-            className="w-full h-10 rounded-sm placeholder:text-gray-4 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black "
-          />
+          <div className="w-full flex items-center gap-2">
+                                    
+                                    <Input type={showPassword ? "text" : "password"} placeholder="Senha" {...register("password")} />
+                                    {
+                                        showPassword ?
+                                        <FaEye className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} /> :
+                                        <FaEyeSlash className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />
+                                    }
+                            </div>
           {errors.password?.message ?
            <span className="text-red font-medium text-xs">{errors.password?.message}</span>
            : <></>
         }
-          <input
-            type="password"
-            placeholder="Confirmar Senha"
-            {...register("passwordConfirmation")}
-            className="w-full h-10 rounded-sm placeholder:text-gray-4 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black"
-          />
+          
+          <div className="w-full flex items-center gap-2">
+                                    
+                                    <Input type={showPassword ? "text" : "password"} placeholder="Senha" {...register("password")} />
+                                    {
+                                        showPassword ?
+                                        <FaEye className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} /> :
+                                        <FaEyeSlash className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />
+                                    }
+                            </div>
           {errors.passwordConfirmation?.message ?
            <span className="text-red font-medium text-xs">{errors.passwordConfirmation?.message}</span>
            : <></>

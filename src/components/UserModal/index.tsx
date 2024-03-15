@@ -15,6 +15,7 @@ import { setUser } from "../../GlobalRedux/Modules/User/userSlice";
 import { storage } from '../../../firebase'
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 import { RootState } from "../../GlobalRedux/store";
+import { Input } from "../Input";
 
 interface UserModalProps {
     setUserModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -143,11 +144,7 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                                     <p className="text-dark font-medium text-base">{user.username}</p>
                                     <button type="button" className="border-[1px] border-solid border-black text-black font-medium rounded-sm p-2" onClick={() => setChangeUsername(true)}>alterar</button>
                                 </> : <>
-                                    <input
-                                        type="text"
-                                        placeholder="Username"
-                                        {...register("username")}
-                                        className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark" />
+                                    <Input placeholder="Username" {...register("username")}/>
                                 </>}
 
                             </div>
@@ -163,11 +160,7 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                                     <button className="border-[1px] border-solid border-black bg-dark text-black font-medium rounded-sm p-2" onClick={() => setChangeEmail(true)}>alterar</button>
 
                                 </> : <>
-                                    <input
-                                        type="text"
-                                        placeholder="Email"
-                                        {...register("email")}
-                                        className="w-full h-10 rounded-sm placeholder:text-black/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black" />
+                                    <Input placeholder="Email" {...register("email")} />
                                 </>}
                             </div>
                             {errors.email?.message ?
@@ -179,15 +172,13 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                                 {!changePassword ? <>
                                     <button className="border-[1px] border-solid border-black text-black font-medium rounded-sm p-2" onClick={() => setChangePassword(true)}>alterar senha</button>
                                 </> : <div className="w-full flex items-center gap-2">
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="Password"
-                                        id="password"
-                                        {...register("password")}
-                                        className="w-full h-10 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark" />
-                                    {showPassword ? <FaEye className="text-dark w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} />
-
-                                        : <FaEyeSlash className="text-dark w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />}
+                                    
+                                        <Input type={showPassword ? "text" : "password"} placeholder="Senha" {...register("password")} />
+                                        {
+                                            showPassword ?
+                                            <FaEye className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} /> :
+                                            <FaEyeSlash className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />
+                                        }
                                 </div>}
                             </div>
                             {errors.password?.message ?
