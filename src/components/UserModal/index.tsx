@@ -86,10 +86,10 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
     }
 
     return (
-        <div className="fixed top-0 left-0 w-screen h-screen bg-gray1 z-20 flex bg-opacity-20">
+        <div className="fixed top-0 left-0 w-screen h-screen bg-gray-1 z-20 flex bg-opacity-80">
             <form
                 action="update"
-                className="bg-gray2 w-11/12 md:w-2/4 lg:w-1/4 h-4/6 rounded-xl flex flex-col items-center justify-evenly mx-auto my-auto"
+                className="bg-gray-2 w-11/12 md:w-2/4 lg:w-1/4 h-fit rounded-xl flex flex-col items-center justify-evenly mx-auto my-auto"
                 onSubmit={handleSubmit(onSubmitFunction)}
             >
 
@@ -128,63 +128,63 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
 
                                     {user.profileImagePath === null ?
                                         <FaUserCircle className="text-text h-full w-full" /> :
-                                        <img src={user.profileImagePath} alt="" className="w-full h-full" />
+                                        <img src={user.profileImagePath} alt="" className="w-full h-full rounded-full" />
                                     }
 
                                 </div>
                                 {file ? <p className="text-sm">Selecionado: {file.name.substring(0, 8) + "..."}</p> : null}
-                                <label htmlFor="profileImage" className="cursor-pointer bg-dark text-text p-2 rounded-xl">alterar</label>
+                                <label htmlFor="profileImage" className="border-[1px] border-solid border-black cursor-pointer text-black p-2 rounded-sm">alterar</label>
                                 <input onChange={(e: any) => { setFile(e.target.files[0]) }} className=" hidden" type="file" name="profileImage" id="profileImage" accept="image/*" />
                             </div>
 
 
-                            <div className="w-full h-12 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
+                            <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
                                 {!changeUsername ? <>
-                                    <p className="text-dark font-bold text-base">{user.username}</p>
-                                    <button type="button" className="bg-dark text-text font-medium rounded-xl p-2" onClick={() => setChangeUsername(true)}>alterar</button>
+                                    <p className="text-dark font-medium text-base">{user.username}</p>
+                                    <button type="button" className="border-[1px] border-solid border-black text-black font-medium rounded-sm p-2" onClick={() => setChangeUsername(true)}>alterar</button>
                                 </> : <>
                                     <input
                                         type="text"
                                         placeholder="Username"
                                         {...register("username")}
-                                        className="w-full h-12 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark" />
+                                        className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark" />
                                 </>}
 
                             </div>
                             {errors.username?.message ?
 
-                                <span className="text-[rgb(255,25,50)] font-semibold text-sm">{errors.username?.message}</span>
+                                <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.username?.message}</span>
                                 : <></>
                             }
 
-                            <div className="w-full h-12 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
+                            <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black flex justify-between items-center">
                                 {!changeEmail ? <>
-                                    <p className="text-dark font-bold text-base">{user.email}</p>
-                                    <button className="bg-dark text-text font-medium rounded-xl p-2" onClick={() => setChangeEmail(true)}>alterar</button>
+                                    <p className="text-black font-medium text-base">{user.email}</p>
+                                    <button className="border-[1px] border-solid border-black bg-dark text-black font-medium rounded-sm p-2" onClick={() => setChangeEmail(true)}>alterar</button>
 
                                 </> : <>
                                     <input
                                         type="text"
                                         placeholder="Email"
                                         {...register("email")}
-                                        className="w-full h-12 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark" />
+                                        className="w-full h-10 rounded-sm placeholder:text-black/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black" />
                                 </>}
                             </div>
                             {errors.email?.message ?
 
-                                <span className="text-[rgb(255,25,50)] font-semibold text-sm">{errors.email?.message}</span>
+                                <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.email?.message}</span>
                                 : <></>
                             }
-                            <div className="w-full h-12 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
+                            <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark flex justify-between items-center">
                                 {!changePassword ? <>
-                                    <button className="bg-dark text-text font-medium rounded-xl p-2" onClick={() => setChangePassword(true)}>alterar senha</button>
+                                    <button className="border-[1px] border-solid border-black text-black font-medium rounded-sm p-2" onClick={() => setChangePassword(true)}>alterar senha</button>
                                 </> : <div className="w-full flex items-center gap-2">
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Password"
                                         id="password"
                                         {...register("password")}
-                                        className="w-full h-12 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark" />
+                                        className="w-full h-10 rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark" />
                                     {showPassword ? <FaEye className="text-dark w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} />
 
                                         : <FaEyeSlash className="text-dark w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />}
@@ -192,13 +192,13 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                             </div>
                             {errors.password?.message ?
 
-                                <span className="text-[rgb(255,25,50)] font-semibold text-sm">{errors.password?.message}</span>
+                                <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.password?.message}</span>
                                 : <></>
                             }
 
 
                         </div>
-                        <button type="submit" className="mb-6 w-full h-14 rounded-xl bg-dark text-text font-bold text-2xl hover:bg-gray3 flex justify-center items-center">
+                        <button type="submit" className="mb-6 w-full h-10 rounded-md bg-black text-white font-bold text-xl hover:bg-gray-7 flex justify-center items-center">
                             {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Salvar</p>}
                         </button>
                     </div>
