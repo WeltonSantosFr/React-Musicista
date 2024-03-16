@@ -11,7 +11,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <>
                 <button
-                    className={`w-full h-10 rounded-sm bg-black text-white font-bold text-base hover:bg-gray-7 flex justify-center items-center ${className}`}
+                    className={`w-full px-2 h-10 rounded-sm bg-black text-white font-bold text-base hover:bg-gray-7 flex justify-center items-center dark:bg-white dark:text-black ${className}`}
                     {...props}
                     ref={ref}>
                     {children}

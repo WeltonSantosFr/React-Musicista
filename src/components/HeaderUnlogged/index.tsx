@@ -3,6 +3,8 @@ import { AiOutlineMenu } from "react-icons/ai"
 import { BsDoorOpenFill, BsPencilSquare } from "react-icons/bs"
 import { FaGuitar } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
+import { ThemeToggle } from "../ThemeToggle"
+import { Button } from "../Button"
 
 const HeaderUnlogged = () => {
     const [dropbar, setDropbar] = useState(false)
@@ -35,13 +37,13 @@ const HeaderUnlogged = () => {
                 </div>
 
                 <div className="hidden md:flex gap-2">
-                    <button
-                        className="w-fit px-2 h-10 text-black font-normal hover:bg-gray-4 flex justify-center items-center gap-1 rounded-sm"
+                    <Button
+                        // className="w-fit px-2 h-10 text-black font-normal hover:bg-gray-4 flex justify-center items-center gap-1 rounded-sm"
                         onClick={() => navigate("/login")}
                     >
                         <BsDoorOpenFill />
                         Logar
-                    </button>
+                    </Button>
                     <button
                         className="w-fit px-2 h-10 text-black font-normal hover:bg-gray-4 flex justify-center items-center gap-1 rounded-sm"
                         onClick={() => navigate("/register")}
@@ -49,6 +51,7 @@ const HeaderUnlogged = () => {
                         <BsPencilSquare />
                         Registrar
                     </button>
+                    <ThemeToggle/>
                 </div>
             </div>
         </header>
