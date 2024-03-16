@@ -1,5 +1,4 @@
-import { InputHTMLAttributes, forwardRef, useState } from "react"
-import { FaEye } from "react-icons/fa"
+import { InputHTMLAttributes, forwardRef } from "react"
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>
 
