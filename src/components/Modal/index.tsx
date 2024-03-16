@@ -1,6 +1,7 @@
 import { FormHTMLAttributes, ReactNode, forwardRef } from "react"
 
 type FormProps = FormHTMLAttributes<HTMLFormElement>
+
 interface ModalProps extends FormProps {
     children: ReactNode
 }

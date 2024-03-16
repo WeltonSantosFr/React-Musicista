@@ -16,6 +16,7 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage
 import { RootState } from "../../GlobalRedux/store";
 import { Input } from "../Input";
 import { Modal } from "../Modal";
+import { Button } from "../Button";
 
 interface UserModalProps {
     setUserModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,7 +28,7 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
     const [changeEmail, setChangeEmail] = useState<boolean>(false)
     const [changePassword, setChangePassword] = useState<boolean>(false)
     const [showPassword, setShowPassword] = useState<boolean>(false)
-    const [file, setFile] = useState<File |null >(null)
+    const [file, setFile] = useState<File | null>(null)
     const user = useSelector((state: RootState) => state.user)
 
     const dispatch = useDispatch()
@@ -92,25 +93,25 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
 
     return (
         <Modal action="update" onSubmit={handleSubmit(onSubmitFunction)}>
-            <div className="w-11/12 h-full flex flex-col items-center justify-between gap-5">
-                <MdClose className="text-text self-start ml-0 cursor-pointer mt-6"
+            <div className="w-11/12 h-full flex flex-col items-center justify-between gap-5 py-5">
+                <MdClose className="text-text self-start ml-0 cursor-pointer mt-0"
                     onClick={() => setUserModal(false)} />
                 <div className="flex flex-col gap-5 w-full h-fit items-center ">
                     <div className="w-full h-fit rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
-                        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-text border-2">
+                        <div className="w-16 h-16 md:w-16 md:h-16 rounded-full border-text border-2">
                             {user.profileImagePath === null ?
                                 <FaUserCircle className="text-text h-full w-full" /> :
                                 <img src={user.profileImagePath} alt="" className="w-full h-full rounded-full" />
                             }
                         </div>
                         {file ? <p className="text-sm">Selecionado: {file.name.substring(0, 8) + "..."}</p> : null}
-                        <label htmlFor="profileImage" className="border-[1px] border-solid border-black cursor-pointer text-black p-2 rounded-sm">alterar</label>
-                        <input onChange={handleFileChange} className=" hidden" type="file" name="profileImage" id="profileImage" accept="image/*" />
+                        <label htmlFor="profileImage" className="cursor-pointer rounded-sm w-fit h-10 text-center p-2 text-white bg-black flex items-center justify-center">Alterar</label>
+                        <input onChange={handleFileChange} className="hidden" type="file" name="profileImage" id="profileImage" accept="image/*" />
                     </div>
                     <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
                         {!changeUsername ? <>
                             <p className="text-dark font-medium text-base">{user.username}</p>
-                            <button type="button" className="border-[1px] border-solid border-black text-black font-medium rounded-sm p-2" onClick={() => setChangeUsername(true)}>alterar</button>
+                            <Button className="max-w-fit p-2" onClick={() => setChangeUsername(true)}>Alterar</Button>
                         </> : <>
                             <Input placeholder="Username" {...register("username")} />
                         </>}
@@ -122,7 +123,8 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                     <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black flex justify-between items-center">
                         {!changeEmail ? <>
                             <p className="text-black font-medium text-base">{user.email}</p>
-                            <button className="border-[1px] border-solid border-black bg-dark text-black font-medium rounded-sm p-2" onClick={() => setChangeEmail(true)}>alterar</button>
+
+                            <Button className="max-w-fit p-2" onClick={() => setChangeEmail(true)}>Alterar</Button>
 
                         </> : <>
                             <Input placeholder="Email" {...register("email")} />
@@ -134,7 +136,7 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                     }
                     <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark flex justify-between items-center">
                         {!changePassword ? <>
-                            <button className="border-[1px] border-solid border-black text-black font-medium rounded-sm p-2" onClick={() => setChangePassword(true)}>alterar senha</button>
+                            <Button className="max-w-fit p-2" onClick={() => setChangePassword(true)}>Alterar Senha</Button>
                         </> : <div className="w-full flex items-center gap-2">
 
                             <Input type={showPassword ? "text" : "password"} placeholder="Senha" {...register("password")} />
@@ -150,9 +152,9 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                         : <></>
                     }
                 </div>
-                <button type="submit" className="mb-6 w-full h-10 rounded-md bg-black text-white font-bold text-xl hover:bg-gray-7 flex justify-center items-center">
+                <Button type="submit">
                     {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Salvar</p>}
-                </button>
+                </Button>
             </div>
         </Modal>
     )
