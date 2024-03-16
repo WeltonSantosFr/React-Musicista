@@ -2,10 +2,13 @@ import { FieldValues, SubmitHandler } from "react-hook-form"
 
 export interface User {
     id: string
-    profileImagePath: string | null
+    profileImagePath?: string
     username:string
     email:string
     password:string
+    createdAt:Date
+    updatedAt:Date
+    isActive:boolean
 }
 
 export interface UserLogin {
