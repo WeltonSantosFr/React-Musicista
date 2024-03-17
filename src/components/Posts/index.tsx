@@ -3,6 +3,7 @@ import api from "../../services/api"
 import { FaFilter } from "react-icons/fa"
 import { Post } from "../../interfaces/post.interface"
 import PostCreateModal from "../PostCreateModal"
+import { Button } from "../Button"
 
 const Posts = () => {
     const [posts, setPosts] = useState<Post[]>([])
@@ -40,98 +41,135 @@ const Posts = () => {
         }
         setPosts(sortedData)
     }
-    
+
 
     return (
-        <div className="w-full h-full flex flex-col items-center flex-grow mx-auto my-0 overflow-y-hidden divide-y-[1px] divide-solid divide-gray-3 md:w-8/12 border-x-[1px] border-solid border-x-gray-3">
-                {
-                    postCreateModal ? <PostCreateModal setPostCreateModal={setPostCreateModal}/> : null
-                }
+        <div className="w-full h-full flex flex-col items-center flex-grow mx-auto my-0 overflow-y-hidden divide-y-[1px] divide-solid divide-gray-3 dark:divide-gray-5 md:w-8/12 border-x-[1px] border-solid border-x-gray-3 dark:border-x-gray-5 text-black dark:text-gray-4">
+            {
+                postCreateModal ? <PostCreateModal setPostCreateModal={setPostCreateModal} /> : null
+            }
 
-                <div className="w-11/12 flex justify-end items-center py-2">
-                    <button className={`border rounded-sm p-2 flex gap-2 bg-white hover:bg-gray-2`} onClick={() => setPostCreateModal(true)}>
-                        Criar Post
-                    </button>
+            <div className="w-11/12 flex justify-between items-center py-2">
+                <Button
+                    className="max-w-fit">
+                    Meus Posts
+                </Button>
+                <Button onClick={() => setPostCreateModal(true)} className="max-w-fit">
+                    Criar Post
+                </Button>
+
+            </div>
+
+            <div className={`w-full h-fit py-2 flex flex-col items-center justify-between gap-2 transition-all transform ease-linear`}>
+
+
+
+                <div className="w-11/12 flex justify-between items-center">
+
+
+                    <p className="px-2">{posts.length} Posts</p>
+                    <Button onClick={() => setFilterDiv(!filterDiv)} className="max-w-fit">
+                        <FaFilter className="w-4 h-4" />
+                        Filtros
+                    </Button>
+
                 </div>
 
-                <div className={`w-full h-fit py-2 flex flex-col items-center justify-between gap-2 transition-all transform ease-linear`}>
 
 
+                <div className={`${filterDiv ? "flex" : "hidden"} flex-col justify-evenly items-end gap-2 w-11/12 h-fit py-2 border-t border-solid border-gray-3 dark:border-gray-5 rounded-sm transition-all transform ease-linear`}>
 
-                    <div className="w-11/12 flex justify-between items-center">
-
-
-                        <p>{posts.length} Posts</p>
-                        <button className={`border rounded-sm p-2 flex gap-2  ${filterDiv ? "bg-black text-white hover:bg-gray-6" : "bg-white hover:bg-gray-2"}`} onClick={() => setFilterDiv(!filterDiv)}>
-                            <FaFilter className="w-4 h-4" />
-                            Filtros
-                        </button>
-                    </div>
-
-
-
-                    <div className={`${filterDiv ? "flex" : "hidden"} flex-col justify-evenly items-end gap-2 w-11/12 h-fit py-2 border-t border-solid border-gray-3 rounded-sm transition-all transform ease-linear`}>
-
-                        <div className="w-full h-fit flex justify-between items-center">
-
-                            <button className="border rounded-sm p-2 w-fit h-fit bg-black hover:bg-gray-6 text-white" onClick={() => {
+                    <div className="w-full h-fit flex justify-between items-center">
+                        <Button
+                            className="max-w-fit"
+                            onClick={() => {
                                 setActiveFilters({ date: true, like: false, comment: false })
                                 applyFilters()
-                            }}>Redefinir</button>
-                            <button className="border rounded-sm p-2 w-fit h-fit bg-black hover:bg-gray-6 text-white" onClick={() => applyFilters()}>Aplicar Filtros</button>
+                            }}>
+                            Redefinir
+                        </Button>
+                        <Button
+                            className="max-w-fit"
+                            onClick={() => applyFilters()}>
+                            Aplicar Filtros
+                        </Button>
+
+                    </div>
+
+
+                    <div className="w-full h-fit flex justify-between items-center">
+
+                        <div className="w-fit h-fit flex justify-evenly relative">
+                            <Button
+                                className="max-w-fit"
+                                onClick={() => setDateDropdown(!dateDropdown)}>
+                                Data
+                                <svg className={`w-2.5 h-2.5 ms-3 ${dateDropdown ? "rotate-180" : ""} transition ease-in-out`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </Button>
+
+                            <div className={`${dateDropdown ? "absolute" : "hidden"} top-11 flex flex-col rounded-sm bg-gray-2 divide-y divide-gray-3 dark:bg-gray-6 dark:divide-gray-5`}>
+                                <Button
+                                    className="font-normal text-sm"
+                                    onClick={() => setActiveFilters({ ...activeFilters, date: true })}>Mais Novo</Button>
+                                <Button
+                                    className="font-normal text-sm"
+                                    onClick={() => setActiveFilters({ ...activeFilters, date: false })}>
+                                    Mais Antigo
+                                </Button>
+
+                            </div>
                         </div>
 
+                        <div className="w-fit h-fit flex justify-evenly relative">
+                            <Button
+                                className="max-w-fit"
+                                onClick={() => setLikeDropdown(!likeDropdown)}>
+                                Likes
+                                <svg className={`w-2.5 h-2.5 ms-3 ${likeDropdown ? "rotate-180" : ""} transition ease-in-out`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </Button>
 
-                        <div className="w-full h-fit flex justify-between items-center">
-
-                            <div className="w-fit h-fit flex justify-evenly relative">
-                                <button
-                                    className={`border rounded-sm p-2 ${dateDropdown ? "bg-black hover:bg-gray-6 text-white" : "bg-white hover:bg-gray-2 text-black} "} flex items-center z-50`}
-                                    onClick={() => setDateDropdown(!dateDropdown)}>
-                                    Data
-                                    <svg className={`w-2.5 h-2.5 ms-3 ${dateDropdown ? "rotate-180" : ""} transition ease-in-out`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                                    </svg>
-                                </button>
-                                <div className={`${dateDropdown ? "absolute" : "hidden"} top-11 flex flex-col rounded-sm bg-gray-2 divide-y divide-gray-3`}>
-                                    <button className="p-2 text-sm hover:bg-gray-4" onClick={() => setActiveFilters({ ...activeFilters, date: true })}>Mais Novo</button>
-                                    <button className="p-2 text-sm hover:bg-gray-4" onClick={() => setActiveFilters({ ...activeFilters, date: false })}>Mais Antigo</button>
-                                </div>
+                            <div className={`${likeDropdown ? "absolute " : "hidden"} top-11 flex-col rounded-sm bg-gray-2 fixed divide-y divide-gray-3  dark:bg-gray-6 dark:divide-gray-5`}>
+                                <Button
+                                    className="font-normal text-sm"
+                                    onClick={() => setActiveFilters({ ...activeFilters, like: true })}>
+                                    Mais Likes
+                                </Button>
+                                <Button
+                                    className="font-normal text-sm"
+                                    onClick={() => setActiveFilters({ ...activeFilters, like: false })}>
+                                    Menos Likes
+                                </Button>
                             </div>
-
-                            <div className="w-fit h-fit flex justify-evenly relative">
-                                <button
-                                    className={`border rounded-sm p-2 ${likeDropdown ? "bg-black hover:bg-gray-6 text-white" : "bg-white hover:bg-gray-2 text-black} "} flex items-center z-50`}
-                                    onClick={() => setLikeDropdown(!likeDropdown)}>
-                                    Likes
-                                    <svg className={`w-2.5 h-2.5 ms-3 ${likeDropdown ? "rotate-180" : ""} transition ease-in-out`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                                    </svg>
-                                </button>
-                                <div className={`${likeDropdown ? "absolute " : "hidden"} top-11 flex-col rounded-sm bg-gray-2 fixed divide-y divide-gray-3`}>
-                                    <button className="p-2 text-sm hover:bg-gray-4" onClick={() => setActiveFilters({ ...activeFilters, like: true })}>Mais Likes</button>
-                                    <button className="p-2 text-sm hover:bg-gray-4" onClick={() => setActiveFilters({ ...activeFilters, like: false })}>Menos Likes</button>
-                                </div>
-                            </div>
-
-                            <div className="w-fit h-fit flex justify-evenly relative">
-                                <button
-                                    className={`border rounded-sm p-2 ${commentDropdown ? "bg-black hover:bg-gray-6 text-white" : "bg-white hover:bg-gray-2 text-black} "} flex items-center z-50`}
-                                    onClick={() => setCommentDropdown(!commentDropdown)}>
-                                    Comentários
-                                    <svg className={`w-2.5 h-2.5 ms-3 ${commentDropdown ? "rotate-180" : ""} transition ease-in-out`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                                    </svg>
-                                </button>
-                                <div className={`${commentDropdown ? "absolute " : "hidden"} top-11 flex-col rounded-sm bg-gray-2 fixed divide-y divide-gray-3`}>
-                                    <button className="p-2 text-sm hover:bg-gray-4" onClick={() => setActiveFilters({ ...activeFilters, comment: true })}>Mais Comentários</button>
-                                    <button className="p-2 text-sm hover:bg-gray-4" onClick={() => setActiveFilters({ ...activeFilters, comment: false })}>Menos Comentários</button>
-                                </div>
-                            </div>
-
                         </div>
 
+                        <div className="w-fit h-fit flex justify-evenly relative">
+                            <Button
+                                className="max-w-fit"
+                                onClick={() => setCommentDropdown(!commentDropdown)}>
+                                Comentários
+                                <svg className={`w-2.5 h-2.5 ms-3 ${commentDropdown ? "rotate-180" : ""} transition ease-in-out`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </Button>
 
+                            <div className={`${commentDropdown ? "absolute " : "hidden"} top-11 flex-col rounded-sm bg-gray-2 fixed divide-y divide-gray-3 dark:bg-gray-6 dark:divide-gray-5`}>
+                                <Button
+                                    className="font-normal text-sm"
+                                    onClick={() => setActiveFilters({ ...activeFilters, comment: true })}>
+                                    Mais Comentários
+                                </Button>
+                                <Button
+                                    className="font-normal text-sm"
+                                    onClick={() => setActiveFilters({ ...activeFilters, comment: false })}>
+                                    Menos Comentários
+                                </Button>
+
+                            </div>
+                        </div>
 
                     </div>
 
@@ -139,10 +177,15 @@ const Posts = () => {
 
                 </div>
 
-                {posts.map((post) => (
+
+
+            </div>
+
+            {
+                posts.map((post) => (
                     <div key={post.id} className="w-full h-fit py-4 lg:h-36 flex flex-col items-center text-text hover:bg-gray2 shrink-0">
                         <div className="w-11/12 h-full flex flex-col justify-center gap-2 lg:flex-row lg:gap-6 lg:items-center">
-                            <div className="flex gap-2 items-center lg:flex-col lg:w-fit lg:items-start text-sm md:text-base lg:text-sm text-gray-4">
+                            <div className="flex gap-2 items-center lg:flex-col lg:w-fit lg:items-start text-sm md:text-base lg:text-sm text-gray-4 dark:text-gray-5">
                                 {/* rating, comments, views */}
                                 <p className="text-text">{post.ratings.length} votes</p>
                                 <p className="">{post.comments.length} comments</p>
@@ -165,8 +208,9 @@ const Posts = () => {
                             </div>
                         </div>
                     </div>
-                ))}
-            </div>
+                ))
+            }
+        </div >
     )
 }
 
