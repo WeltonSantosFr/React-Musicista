@@ -20,7 +20,7 @@ export const ThemeToggle = () => {
     }
 
     return (
-        <Button onClick={toggleTheme}>
+        <Button onClick={toggleTheme} className="max-w-fit">
             {userTheme === "dark" ? <FaMoon /> : <FaSun />}
         </Button>
     )
