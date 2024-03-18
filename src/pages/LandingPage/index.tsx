@@ -1,10 +1,12 @@
 import HeaderUnlogged from "../../components/HeaderUnlogged";
 
+
 const LandingPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-black">
       <HeaderUnlogged />
+      
 
       <main className="flex-grow mt-12 flex justify-center items-center">
         <div className="w-11/12 h-full flex flex-col items-center justify-center gap-10 sm:flex-row-reverse sm:justify-between sm:items-center">

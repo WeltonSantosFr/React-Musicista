@@ -5,13 +5,20 @@ import { FaGuitar } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import { ThemeToggle } from "../ThemeToggle"
 import { Button } from "../Button"
+import { LoginModal } from "../LoginModal"
 
 const HeaderUnlogged = () => {
-    const [dropbar, setDropbar] = useState(false)
+    const [dropbar, setDropbar] = useState<boolean>(false)
+    const [loginModal, setLoginModal] = useState<boolean>(false)
     const navigate = useNavigate();
+
+    const handleCloseLoginModal = () => {
+        setLoginModal(false)
+    }
 
     return (
         <header className="flex items-center dark:bg-black h-12 w-full justify-center border-b-[1px] border-solid border-b-gray-3 dark:border-b-gray-5 fixed top-0 z-50 text-black dark:text-gray-4">
+            <LoginModal open={loginModal} onClose={handleCloseLoginModal}/>
             <div className="flex items-center h-10 w-11/12 justify-between">
 
 
@@ -42,7 +49,7 @@ const HeaderUnlogged = () => {
 
                 <div className="hidden md:flex gap-2">
                     <Button
-                        onClick={() => navigate("/login")}
+                        onClick={() => setLoginModal(!loginModal)}
                     >
                         <BsDoorOpenFill />
                         Logar
