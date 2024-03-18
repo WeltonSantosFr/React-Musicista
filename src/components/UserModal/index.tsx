@@ -19,10 +19,11 @@ import { Modal } from "../Modal";
 import { Button } from "../Button";
 
 interface UserModalProps {
-    setUserModal: React.Dispatch<React.SetStateAction<boolean>>
+    open: boolean;
+    onClose: () => void
 }
 
-const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
+const UserModal: React.FC<UserModalProps> = ({ open, onClose }) => {
     const [loading, setLoading] = useState<boolean>(false)
     const [changeUsername, setChangeUsername] = useState<boolean>(false)
     const [changeEmail, setChangeEmail] = useState<boolean>(false)
@@ -62,7 +63,7 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
                 dispatch(setUser(res.data[0]))
                 toast.success("Updated with success!")
                 setLoading(false)
-                setUserModal(false)
+                onClose()
             })
             .catch(() => {
                 toast.error("Update failed.")
@@ -92,69 +93,80 @@ const UserModal: React.FC<UserModalProps> = ({ setUserModal }) => {
     }
 
     return (
-        <Modal action="update" onSubmit={handleSubmit(onSubmitFunction)}>
-            <div className="w-11/12 h-full flex flex-col items-center justify-between gap-5 py-5">
-                <MdClose className="text-text self-start ml-0 cursor-pointer mt-0"
-                    onClick={() => setUserModal(false)} />
-                <div className="flex flex-col gap-5 w-full h-fit items-center ">
-                    <div className="w-full h-fit rounded-xl placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
-                        <div className="w-16 h-16 md:w-16 md:h-16 rounded-full border-text border-2">
-                            {user.profileImagePath === null ?
-                                <FaUserCircle className="text-text h-full w-full" /> :
-                                <img src={user.profileImagePath} alt="" className="w-full h-full rounded-full" />
-                            }
-                        </div>
-                        {file ? <p className="text-sm">Selecionado: {file.name.substring(0, 8) + "..."}</p> : null}
-                        <label htmlFor="profileImage" className="cursor-pointer rounded-sm w-fit h-10 text-center p-2 text-white bg-black flex items-center justify-center">Alterar</label>
-                        <input onChange={handleFileChange} className="hidden" type="file" name="profileImage" id="profileImage" accept="image/*" />
-                    </div>
-                    <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-bold text-dark flex justify-between items-center">
-                        {!changeUsername ? <>
-                            <p className="text-dark font-medium text-base">{user.username}</p>
-                            <Button className="max-w-fit p-2" onClick={() => setChangeUsername(true)}>Alterar</Button>
-                        </> : <>
-                            <Input placeholder="Username" {...register("username")} />
-                        </>}
-                    </div>
-                    {errors.username?.message ?
-                        <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.username?.message}</span>
-                        : <></>
-                    }
-                    <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-black flex justify-between items-center">
-                        {!changeEmail ? <>
-                            <p className="text-black font-medium text-base">{user.email}</p>
+        <Modal action="update" onSubmit={handleSubmit(onSubmitFunction)} open={open}>
+            <div className="w-11/12 min-h-full max-h-full flex flex-col items-center justify-between">
+                <div className="flex items-center justify-between w-full h-fit mt-6">
 
-                            <Button className="max-w-fit p-2" onClick={() => setChangeEmail(true)}>Alterar</Button>
-
-                        </> : <>
-                            <Input placeholder="Email" {...register("email")} />
-                        </>}
-                    </div>
-                    {errors.email?.message ?
-                        <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.email?.message}</span>
-                        : <></>
-                    }
-                    <div className="w-full h-10 rounded-sm placeholder:text-dark/75 placeholder:font-bold placeholder:text-center outline-none text-center font-medium text-dark flex justify-between items-center">
-                        {!changePassword ? <>
-                            <Button className="max-w-fit p-2" onClick={() => setChangePassword(true)}>Alterar Senha</Button>
-                        </> : <div className="w-full flex items-center gap-2">
-
-                            <Input type={showPassword ? "text" : "password"} placeholder="Senha" {...register("password")} />
-                            {
-                                showPassword ?
-                                    <FaEye className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} /> :
-                                    <FaEyeSlash className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />
-                            }
-                        </div>}
-                    </div>
-                    {errors.password?.message ?
-                        <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.password?.message}</span>
-                        : <></>
-                    }
+                    <MdClose
+                        className="text-black dark:text-gray-4 cursor-pointer"
+                        onClick={() => onClose()} />
+                    <h3 className="text-black dark:text-gray-4 font-bold text-lg">User Info</h3>
+                    <div></div>
                 </div>
-                <Button type="submit">
-                    {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Salvar</p>}
-                </Button>
+
+                <div className="w-full h-full flex flex-col items-center justify-center gap-10">
+
+                    <div className="flex flex-col gap-5 w-full">
+
+                        <div className="w-full h-fit rounded-xl outline-none text-center font-bold text-dark flex justify-between items-center">
+                            <div className="w-20 h-20 md:w-20 md:h-20 rounded-full border-text border-2">
+                                {user.profileImagePath === null ?
+                                    <FaUserCircle className="text-text h-full w-full" /> :
+                                    <img src={user.profileImagePath} alt="" className="w-full h-full rounded-full" />
+                                }
+                            </div>
+                            {file ? <p className="text-xs text-black dark:text-gray-4">{file.name.substring(0, 10) + "..."}</p> : null}
+                            <label htmlFor="profileImage" className="cursor-pointer rounded-sm w-fit h-10 text-center p-2 bg-black hover:bg-gray-3 text-white dark:text-gray-4 dark:hover:bg-gray-7 flex items-center justify-center">Alterar</label>
+                            <input onChange={handleFileChange} className="hidden" type="file" name="profileImage" id="profileImage" accept="image/*" />
+                        </div>
+                        <div className="w-full h-10 rounded-sm outline-none text-center font-bold text-black flex justify-between items-center">
+                            {!changeUsername ? <>
+                                <p className="text-black dark:text-gray-4 font-medium text-base">{user.username}</p>
+                                <Button className="max-w-fit p-2 bg-black text-white" onClick={() => setChangeUsername(true)}>Alterar</Button>
+                            </> : <>
+                                <Input placeholder="Username" {...register("username")} />
+                            </>}
+                        </div>
+                        {errors.username?.message ?
+                            <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.username?.message}</span>
+                            : <></>
+                        }
+                        <div className="w-full h-10 rounded-sm outline-none text-center font-medium text-black flex justify-between items-center">
+                            {!changeEmail ? <>
+                                <p className=" font-medium text-base">{user.email}</p>
+
+                                <Button className="max-w-fit p-2 bg-black text-white" onClick={() => setChangeEmail(true)}>Alterar</Button>
+
+                            </> : <>
+                                <Input placeholder="Email" {...register("email")} />
+                            </>}
+                        </div>
+                        {errors.email?.message ?
+                            <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.email?.message}</span>
+                            : <></>
+                        }
+                        <div className="w-full h-10 rounded-sm outline-none text-center font-medium text-black flex justify-between items-center">
+                            {!changePassword ? <>
+                                <Button className="max-w-fit p-2 bg-black text-white" onClick={() => setChangePassword(true)}>Alterar Senha</Button>
+                            </> : <div className="w-full flex items-center gap-2">
+
+                                <Input type={showPassword ? "text" : "password"} placeholder="Senha" {...register("password")} />
+                                {
+                                    showPassword ?
+                                        <FaEye className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(false)} /> :
+                                        <FaEyeSlash className="text-black w-5 h-5 fixed ml-2 cursor-pointer" onClick={() => setShowPassword(true)} />
+                                }
+                            </div>}
+                        </div>
+                        {errors.password?.message ?
+                            <span className="text-[rgb(255,25,50)] font-medium text-xs">{errors.password?.message}</span>
+                            : <></>
+                        }
+                    </div>
+                    <Button type="submit" className="bg-black text-white">
+                        {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Salvar</p>}
+                    </Button>
+                </div>
             </div>
         </Modal>
     )
