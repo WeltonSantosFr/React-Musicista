@@ -2,11 +2,14 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {User} from '../../../interfaces/user.interface'
 
 export const initialState:User = {
-        id: 'guest',
-        profileImagePath: null,
-        username: "guest",
-        email: "guest",
-        password: "guest"
+    id: 'guest',
+    profileImagePath: undefined,
+    username: "guest",
+    email: "guest",
+    password: "guest",
+    createdAt: new Date(Date.now()),
+    updatedAt: new Date(Date.now()),
+    isActive: false
 }
 
 export const userSlice = createSlice({

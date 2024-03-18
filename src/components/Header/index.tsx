@@ -30,12 +30,17 @@ const Header = () => {
 
   }, [dispatch])
 
+  const handleCloseUserModal = () => {
+    setUserModal(false)
+
+  }
+
   return (
     <header className="flex items-center text-black dark:bg-black bg-white h-12 w-full justify-center border-b-[1px] border-solid border-b-gray-3 dark:border-b-gray-5 dark:text-gray-4 fixed top-0 z-50">
       <Toaster position="top-right" reverseOrder={false} />
-      {
-        userModal ? <UserModal setUserModal={setUserModal} /> : null
-      }
+
+      <UserModal open={userModal} onClose={handleCloseUserModal} />
+
 
       <div className="flex items-center h-10 w-11/12 justify-between">
         <div className="flex items-center hover:cursor-pointer hover:bg-gray-4 dark:hover:bg-gray-7 h-10 px-2 rounded-sm" onClick={() => navigate("/home")}>
@@ -64,16 +69,16 @@ const Header = () => {
             Forum
           </Button>
           <Button onClick={() => {
-            localStorage.clear()
+            localStorage.removeItem("@token")
             navigate("/")
           }}>
             <BsDoorOpenFill className="ml-4" />
             Logoff
           </Button>
           <Button onClick={() => {
-            setUserModal(true)
+            setUserModal(!userModal)
             setDropbar(false)
-          }}>
+          }} disabled={localStorage.getItem("@token") === "guest" ? true : false}>
             {user.profileImagePath == null ? <FaUserCircle className="w-4 h-4 ml-4" /> : <img src={user.profileImagePath} className="w-4 h-4 rounded-full ml-4" />}
             <p className="text-ellipsis whitespace-nowrap overflow-hidden w-24">{user.username}</p>
           </Button>
@@ -101,12 +106,13 @@ const Header = () => {
           </div>
 
           <div className="hidden md:flex gap-2">
-            <Button onClick={() => setUserModal(true)}>
+            <Button onClick={() => setUserModal(!userModal)}
+              disabled={localStorage.getItem("@token") === "guest" ? true : false}>
               {user.profileImagePath == null ? <FaUserCircle className="w-6 h-6" /> : <img src={user.profileImagePath} className="w-6 h-6 rounded-full" />}
               <p className="text-ellipsis whitespace-nowrap overflow-hidden w-24">{user.username}</p>
             </Button>
             <Button onClick={() => {
-              localStorage.clear()
+              localStorage.removeItem("@token")
               navigate("/")
             }}>
               <BsDoorOpenFill />
