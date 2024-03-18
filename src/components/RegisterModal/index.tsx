@@ -1,41 +1,41 @@
-import { useNavigate } from "react-router";
-import { UserLogin } from "../../interfaces/user.interface";
-import api from "../../services/api";
-import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { loginUserScheema } from "../../validations/forms.validations";
-import { useState } from "react";
+import { registerUserSchema } from "../../validations/forms.validations";
+import { UserRegister } from "../../interfaces/user.interface";
+import api from "../../services/api";
+import toast from 'react-hot-toast';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useState } from 'react'
 import { Input } from "../Input";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Modal } from "../Modal";
 import { MdClose } from "react-icons/md";
 import { Button } from "../Button";
 
-interface LoginModalProps {
+interface RegisterModalProps {
   open: boolean;
   onClose: (value?:boolean) => void;
 }
 
-export const LoginModal = ({ open, onClose }: LoginModalProps) => {
+export const RegisterModal = ({ open, onClose }: RegisterModalProps) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
-  const handleLoginValues = (data: UserLogin) => {
+  const handleRegisterValues = (data: UserRegister) => {
     setLoading(true)
-    api.post("/user/login", data, {
+    api.post("/user", data, {
     })
-      .then((res) => {
-        toast.success('Logged with success!')
+      .then(() => {
+        toast.success('Created with success!')
         setLoading(false)
-        localStorage.setItem('@token', res.data.token)
-        navigate("/home")
+        setTimeout(() => {
+          navigate("/home")
+        }, 1000)
       })
       .catch((err) => {
-        console.error(err)
-        toast.error('Login failed.')
+        toast.error(err.response.data.message)
         setLoading(false)
       })
   }
@@ -46,11 +46,17 @@ export const LoginModal = ({ open, onClose }: LoginModalProps) => {
     formState: { errors },
   } = useForm({
     mode: "onSubmit",
-    resolver: yupResolver(loginUserScheema)
+    resolver: yupResolver(registerUserSchema)
   })
 
-  const onSubmitFunction = (data: UserLogin) => {
-    handleLoginValues(data)
+  const onSubmitFunction = (data: UserRegister) => {
+    const newData = {
+      username: data.email.split("@")[0],
+      email: data.email,
+      password: data.password,
+      passwordConfirmation: data.passwordConfirmation
+    }
+    handleRegisterValues(newData)
   }
 
   return (
@@ -61,7 +67,7 @@ export const LoginModal = ({ open, onClose }: LoginModalProps) => {
           <MdClose
             className="text-black dark:text-gray-4 cursor-pointer"
             onClick={() => onClose()} />
-          <h3 className="text-black dark:text-gray-4 font-bold text-lg">Login</h3>
+          <h3 className="text-black dark:text-gray-4 font-bold text-lg">Registro</h3>
           <div></div>
         </div>
 
@@ -88,10 +94,16 @@ export const LoginModal = ({ open, onClose }: LoginModalProps) => {
               <span className="text-red font-medium text-xs">{errors.password?.message}</span>
               : <></>
             }
+            <Input type={showPassword ? "text" : "password"} placeholder="Confirmar Senha" {...register("passwordConfirmation")} />
+            {errors.email?.message ?
+
+              <span className="text-red font-medium text-xs">{errors.email?.message}</span>
+              : <></>
+            }
           </div>
           <div className="flex flex-col items-center w-full gap-4">
             <Button type="submit" className="bg-black text-white">
-              {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Logar</p>}
+              {loading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <p>Registrar</p>}
 
             </Button>
             <Button type="button"
@@ -104,12 +116,12 @@ export const LoginModal = ({ open, onClose }: LoginModalProps) => {
             </Button>
 
             <p className="text-black text-xs font-medium">
-              não possui uma conta?{" "}
+              já possui conta uma conta?{" "}
               <a
                 className="text-blue-8 hover:text-blue-7 cursor-pointer"
                 onClick={() => onClose(true)}
               >
-                registrar-se
+                logar
               </a>
             </p>
           </div>
