@@ -7,8 +7,8 @@ export const initialState:User = {
     username: "guest",
     email: "guest",
     password: "guest",
-    createdAt: new Date(Date.now()),
-    updatedAt: new Date(Date.now()),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     isActive: false
 }
 
