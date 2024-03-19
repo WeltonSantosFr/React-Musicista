@@ -49,6 +49,9 @@ const HeaderUnlogged = () => {
 
                     <Button onClick={() => {
                         setLoginModal(!loginModal)
+                        if(dropbar) {
+                            setDropbar(false)
+                        }
                         if(registerModal) {
                             setRegisterModal(false)
                         }
@@ -58,6 +61,9 @@ const HeaderUnlogged = () => {
                     </Button>
                     <Button onClick={() => {
                         setRegisterModal(!registerModal)
+                        if(dropbar) {
+                            setDropbar(false)
+                        }
                         if(loginModal) {
                             setLoginModal(false)
                         }
