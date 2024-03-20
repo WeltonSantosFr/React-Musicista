@@ -4,6 +4,7 @@ import { FaFilter } from "react-icons/fa"
 import { Post } from "../../interfaces/post.interface"
 import PostCreateModal from "../PostCreateModal"
 import { Button } from "../Button"
+import { UserPostsModal } from "../UserPostsModal"
 
 const Posts = () => {
     const [posts, setPosts] = useState<Post[]>([])
@@ -17,6 +18,7 @@ const Posts = () => {
     const [likeDropdown, setLikeDropdown] = useState<boolean>(false)
     const [commentDropdown, setCommentDropdown] = useState<boolean>(false)
     const [postCreateModal, setPostCreateModal] = useState<boolean>(false)
+    const [userPostsModal, setUserPostsModal] = useState<boolean>(false)
 
     useEffect(() => {
         api.get("/post")
@@ -45,17 +47,22 @@ const Posts = () => {
     const handleCloseCreatePostModal = () => {
         setPostCreateModal(false)
     }
+
+    const handleCloseUserPostsModal = () => {
+        setUserPostsModal(false)
+    }
     
     return (
         <>
             <PostCreateModal open={postCreateModal} onClose={handleCloseCreatePostModal} />
-
+            <UserPostsModal open={userPostsModal} onClose={handleCloseUserPostsModal} />
             <div className="w-full h-full flex flex-col items-center flex-grow mx-auto my-0 overflow-y-hidden divide-y-[1px] divide-solid divide-gray-3 dark:divide-gray-5 md:w-8/12 border-x-[1px] border-solid border-x-gray-3 dark:border-x-gray-5 text-black dark:text-gray-4">
 
 
 
                 <div className="w-11/12 flex justify-between items-center py-2">
                     <Button
+                    onClick={() => setUserPostsModal(true)}
                         className="max-w-fit">
                         Meus Posts
                     </Button>
