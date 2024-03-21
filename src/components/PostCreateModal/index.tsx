@@ -10,6 +10,9 @@ import toast from "react-hot-toast"
 import { Modal } from "../Modal"
 import { Input } from "../Input"
 import { Button } from "../Button"
+import { useDispatch } from "react-redux"
+import { fetchPosts } from "../../services/posts/fetchPosts"
+import { UnknownAction } from "redux"
 
 interface PostModalProps {
     open: boolean;
@@ -18,14 +21,15 @@ interface PostModalProps {
 
 
 const PostCreateModal: React.FC<PostModalProps> = ({ open, onClose }) => {
+    const dispatch = useDispatch()
 
-    const handleLoginValues = (data: PostCreate) => {
+    const handleCreatePost = (data: PostCreate) => {
         setLoading(true)
-        console.log(data)
         api.post("/post", data, {
             headers: { Authorization: `bearer ${localStorage.getItem("@token")}` }
         })
             .then(() => {
+                dispatch(fetchPosts() as unknown as UnknownAction)
                 toast.success('Created with success!')
                 setLoading(false)
                 onClose()
@@ -48,7 +52,7 @@ const PostCreateModal: React.FC<PostModalProps> = ({ open, onClose }) => {
     })
 
     const onSubmitFunction = (data: PostCreate) => {
-        handleLoginValues(data)
+        handleCreatePost(data)
     }
 
     const [loading, setLoading] = useState<boolean>(false)

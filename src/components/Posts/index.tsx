@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
-import api from "../../services/api"
 import { FaFilter } from "react-icons/fa"
-import { Post } from "../../interfaces/post.interface"
 import PostCreateModal from "../PostCreateModal"
 import { Button } from "../Button"
 import { UserPostsModal } from "../UserPostsModal"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../GlobalRedux/store"
+import { fetchPosts } from "../../services/posts/fetchPosts"
+import { UnknownAction } from "redux"
+import { fetchPostsSuccess } from "../../GlobalRedux/Modules/Posts/postsSlice"
 
 const Posts = () => {
-    const [posts, setPosts] = useState<Post[]>([])
+    // const [posts, setPosts] = useState<Post[]>([])
     const [activeFilters, setActiveFilters] = useState({
         date: true,
         comment: false,
@@ -19,17 +22,15 @@ const Posts = () => {
     const [commentDropdown, setCommentDropdown] = useState<boolean>(false)
     const [postCreateModal, setPostCreateModal] = useState<boolean>(false)
     const [userPostsModal, setUserPostsModal] = useState<boolean>(false)
+    const dispatch = useDispatch()
+    const postsState = useSelector((state:RootState) => state.posts)
 
     useEffect(() => {
-        api.get("/post")
-            .then((res) => {
-                setPosts(res.data)
-            })
-            .catch((err) => { console.log(err) })
-    }, [])
+       dispatch(fetchPosts() as unknown as UnknownAction)
+    }, [dispatch])
 
     const applyFilters = () => {
-        let sortedData = [...posts]
+        let sortedData = [...postsState.posts]
 
         if (activeFilters.date) {
             sortedData = sortedData.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -40,8 +41,8 @@ const Posts = () => {
 
         if (activeFilters.comment) {
             sortedData = sortedData.sort((a, b) => b.comments.length - a.comments.length);
-        }
-        setPosts(sortedData)
+        } 
+        dispatch(fetchPostsSuccess(sortedData))
     }
 
     const handleCloseCreatePostModal = () => {
@@ -79,7 +80,7 @@ const Posts = () => {
                     <div className="w-11/12 flex justify-between items-center">
 
 
-                        <p className="px-2">{posts.length} Posts</p>
+                        <p className="px-2">{postsState.posts.length} Posts</p>
                         <Button onClick={() => setFilterDiv(!filterDiv)} className="max-w-fit">
                             <FaFilter className="w-4 h-4" />
                             Filtros
@@ -194,7 +195,7 @@ const Posts = () => {
                 </div>
 
                 {
-                    posts.map((post) => (
+                    postsState.posts.map((post) => (
                         <div key={post.id} className="w-full h-fit py-4 lg:h-36 flex flex-col items-center text-text hover:bg-gray2 shrink-0">
                             <div className="w-11/12 h-full flex flex-col justify-center gap-2 lg:flex-row lg:gap-6 lg:items-center">
                                 <div className="flex gap-2 items-center lg:flex-col lg:w-fit lg:items-start text-sm md:text-base lg:text-sm text-gray-4 dark:text-gray-5">
