@@ -13,6 +13,7 @@ import { Button } from "../Button"
 import { useDispatch } from "react-redux"
 import { fetchPosts } from "../../services/posts/fetchPosts"
 import { UnknownAction } from "redux"
+import { fetchUserPosts } from "../../services/posts/fetchUserPosts"
 
 interface PostModalProps {
     open: boolean;
@@ -30,6 +31,7 @@ const PostCreateModal: React.FC<PostModalProps> = ({ open, onClose }) => {
         })
             .then(() => {
                 dispatch(fetchPosts() as unknown as UnknownAction)
+                dispatch(fetchUserPosts() as unknown as UnknownAction)
                 toast.success('Created with success!')
                 setLoading(false)
                 onClose()

@@ -35,12 +35,22 @@ const Posts = () => {
         if (activeFilters.date) {
             sortedData = sortedData.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         }
+        if(!activeFilters.date) {
+            sortedData = sortedData.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+        }
         if (activeFilters.like) {
             sortedData = sortedData.sort((a, b) => b.ratings.length - a.ratings.length);
+        }
+        if (!activeFilters.like) {
+            sortedData = sortedData.sort((a, b) => a.ratings.length - b.ratings.length);
         }
 
         if (activeFilters.comment) {
             sortedData = sortedData.sort((a, b) => b.comments.length - a.comments.length);
+        }
+        if (!activeFilters.comment) {
+            sortedData = sortedData.sort((a, b) => a.comments.length - b.comments.length);
         } 
         dispatch(fetchPostsSuccess(sortedData))
     }
@@ -200,7 +210,7 @@ const Posts = () => {
                             <div className="w-11/12 h-full flex flex-col justify-center gap-2 lg:flex-row lg:gap-6 lg:items-center">
                                 <div className="flex gap-2 items-center lg:flex-col lg:w-fit lg:items-start text-sm md:text-base lg:text-sm text-gray-4 dark:text-gray-5">
                                     {/* rating, comments, views */}
-                                    <p className="text-text">{post.ratings.length} votes</p>
+                                    <p className="text-text">{post.ratings.filter((post) => post.rating !== "null").length} votes</p>
                                     <p className="">{post.comments.length} comments</p>
                                 </div>
                                 <div className="flex flex-col gap-2 lg:w-2/3">
